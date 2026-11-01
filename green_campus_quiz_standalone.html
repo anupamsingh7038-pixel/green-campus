@@ -1,0 +1,3505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Green Campus Quiz | Innovation & Design Thinking Lab</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Font Awesome 6 CDN for Crisp Eco Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Canvas Confetti CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+
+  <!-- Custom Styles -->
+  <style>
+/* Green Campus Quiz - Stylesheet */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --primary-green: #0a4d3c;
+  --primary-emerald: #10b981;
+  --primary-mint: #34d399;
+  --accent-lime: #84cc16;
+  --campus-dark: #061c16;
+  --campus-cream: #f4f8f5;
+  --quiz-blue: #0284c7;
+  --quiz-amber: #f59e0b;
+  --quiz-coral: #ef4444;
+  --quiz-lime: #10b981;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: #f7faf8;
+  color: #1e293b;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6, .font-heading {
+  font-family: 'Outfit', sans-serif;
+}
+
+/* Glassmorphism Cards */
+.glass-card {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 10px 30px -5px rgba(10, 77, 60, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
+}
+
+.glass-card-dark {
+  background: rgba(10, 40, 32, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(52, 211, 153, 0.2);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+}
+
+.glass-card-hover {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 35px -10px rgba(10, 77, 60, 0.12), 0 8px 16px -4px rgba(0, 0, 0, 0.05);
+}
+
+/* Slide 1 Laptop Mockup */
+.laptop-mockup {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.laptop-screen {
+  background: #111827;
+  border-radius: 18px 18px 4px 4px;
+  padding: 12px;
+  box-shadow: 0 25px 50px -12px rgba(6, 28, 22, 0.35);
+  border: 2px solid #374151;
+  position: relative;
+  overflow: hidden;
+}
+
+.laptop-inner {
+  background: #bbf7d0;
+  background: linear-gradient(135deg, #a7f3d0 0%, #6ee7b7 100%);
+  border-radius: 10px;
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 1.5rem;
+}
+
+.laptop-base {
+  background: #064e3b;
+  background: linear-gradient(180deg, #047857 0%, #064e3b 100%);
+  height: 20px;
+  border-radius: 0 0 16px 16px;
+  position: relative;
+  margin: 0 -24px;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.25);
+}
+
+.laptop-base::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70px;
+  height: 6px;
+  background: #022c22;
+  border-radius: 0 0 4px 4px;
+}
+
+/* Slide 3 Phone Mockup */
+.phone-mockup {
+  background: #0f172a;
+  border-radius: 42px;
+  padding: 14px;
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  max-width: 380px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.phone-notch {
+  width: 120px;
+  height: 18px;
+  background: #0f172a;
+  border-radius: 0 0 14px 14px;
+  margin: 0 auto 10px auto;
+  position: relative;
+  z-index: 20;
+}
+
+.phone-screen {
+  background: #ffffff;
+  border-radius: 30px;
+  overflow: hidden;
+  min-height: 580px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(3deg); }
+}
+
+@keyframes float-reverse {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(8px) rotate(-3deg); }
+}
+
+@keyframes pulse-subtle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.03); }
+}
+
+@keyframes glow-green {
+  0%, 100% { box-shadow: 0 0 15px rgba(16, 185, 129, 0.3); }
+  50% { box-shadow: 0 0 30px rgba(16, 185, 129, 0.7); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+
+.animate-float {
+  animation: float 5s ease-in-out infinite;
+}
+
+.animate-float-reverse {
+  animation: float-reverse 6s ease-in-out infinite;
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 3s ease-in-out infinite;
+}
+
+.animate-glow {
+  animation: glow-green 2.5s infinite;
+}
+
+.animate-shake {
+  animation: shake 0.4s ease-in-out;
+}
+
+/* Quiz Option Card Styling */
+.quiz-option {
+  position: relative;
+  border: 2px solid #e2e8f0;
+  border-radius: 16px;
+  background-color: #ffffff;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  user-select: none;
+}
+
+.quiz-option:hover:not(.disabled) {
+  border-color: #10b981;
+  background-color: #f0fdf4;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px -3px rgba(16, 185, 129, 0.15);
+}
+
+.quiz-option.selected {
+  border-color: #0d9488;
+  background-color: #f0fdfa;
+  box-shadow: 0 0 0 2px rgba(13, 148, 136, 0.2);
+}
+
+.quiz-option.correct {
+  border-color: #10b981 !important;
+  background-color: #ecfdf5 !important;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.3) !important;
+}
+
+.quiz-option.wrong {
+  border-color: #ef4444 !important;
+  background-color: #fef2f2 !important;
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.25) !important;
+}
+
+/* Coupon / Voucher ticket styling */
+.voucher-ticket {
+  background: #ffffff;
+  border: 2px dashed #059669;
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.voucher-ticket::before,
+.voucher-ticket::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 24px;
+  height: 24px;
+  background-color: #f4f8f5;
+  border-radius: 50%;
+  transform: translateY(-50%);
+  border: 2px solid #059669;
+}
+
+.voucher-ticket::before {
+  left: -14px;
+}
+
+.voucher-ticket::after {
+  right: -14px;
+}
+
+.voucher-ticket:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 25px -5px rgba(5, 150, 105, 0.2);
+}
+
+/* Confetti container */
+#confetti-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Ripple effect */
+.btn-press {
+  transition: transform 0.1s ease;
+}
+
+.btn-press:active {
+  transform: scale(0.97);
+}
+
+/* Toast Notification */
+.toast-msg {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(100px);
+  opacity: 0;
+}
+
+.toast-msg.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Slide badge color chips */
+.badge-step-1 { background: #0284c7; color: white; }
+.badge-step-2 { background: #0d9488; color: white; }
+.badge-step-3 { background: #ef4444; color: white; }
+.badge-step-4 { background: #84cc16; color: white; }
+
+</style>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            campus: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              200: '#bbf7d0',
+              500: '#22c55e',
+              600: '#16a34a',
+              700: '#15803d',
+              800: '#166534',
+              900: '#064e3b',
+              950: '#022c22',
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-emerald-200 selection:text-emerald-900">
+
+  <!-- Confetti Canvas -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- NAVIGATION HEADER -->
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Logo & Lab Brand (Slide 1 & 5) -->
+      <div class="flex items-center gap-3 cursor-pointer" onclick="navigateTo('landing')">
+        <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-emerald-800 to-emerald-500 flex items-center justify-center text-white shadow-md shadow-emerald-900/20">
+          <i class="fa-solid fa-seedling text-xl"></i>
+        </div>
+        <div>
+          <span class="block text-[10px] font-extrabold uppercase tracking-widest text-emerald-700">INNOVATION & DESIGN THINKING LAB</span>
+          <span class="text-xl font-black text-slate-900 tracking-tight flex items-center gap-1.5">
+            GREEN CAMPUS <span class="text-emerald-600 font-extrabold">QUIZ</span>
+          </span>
+        </div>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600">
+        <button onclick="navigateTo('landing')" data-view="landing" class="nav-link text-emerald-700 font-bold border-b-2 border-emerald-600 pb-1 transition">
+          Home
+        </button>
+        <button onclick="navigateTo('quiz')" data-view="quiz" class="nav-link hover:text-emerald-700 pb-1 transition">
+          Quiz Challenge
+        </button>
+        <button onclick="navigateTo('leaderboard')" data-view="leaderboard" class="nav-link hover:text-emerald-700 pb-1 transition flex items-center gap-1.5">
+          <i class="fa-solid fa-trophy text-amber-500 text-xs"></i> Leaderboard
+        </button>
+        <button onclick="navigateTo('rewards')" data-view="rewards" class="nav-link hover:text-emerald-700 pb-1 transition flex items-center gap-1.5">
+          <i class="fa-solid fa-gift text-emerald-600 text-xs"></i> Vouchers & Rewards
+        </button>
+      </nav>
+
+      <!-- Action Utilities: Sound, Profile / Sign In -->
+      <div class="flex items-center gap-3">
+        <!-- Sound Effect Toggle -->
+        <button id="sound-toggle-btn" class="w-10 h-10 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 flex items-center justify-center transition" title="Toggle Sound Effects">
+          <i id="sound-icon" class="fa-solid fa-volume-high text-emerald-700"></i>
+        </button>
+
+        <!-- User Authentication & Profile Pill -->
+        <button id="nav-user-btn" onclick="openProfileModal()" class="flex items-center gap-2.5 py-1.5 px-3.5 rounded-full bg-slate-100 hover:bg-emerald-50 border border-slate-200 hover:border-emerald-300 transition group">
+          <span id="nav-user-avatar" class="w-7 h-7 rounded-full bg-emerald-600 text-white flex items-center justify-center text-sm shadow-xs">🌱</span>
+          <span id="nav-user-name" class="text-xs sm:text-sm font-bold text-slate-700 group-hover:text-emerald-900">Sign In</span>
+          <i class="fa-solid fa-chevron-down text-[10px] text-slate-400"></i>
+        </button>
+
+        <!-- Quick Start CTA Button -->
+        <button onclick="startQuizChallenge()" class="hidden sm:inline-flex items-center gap-2 py-2.5 px-5 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase tracking-wider shadow-md hover:shadow-emerald-600/25 transition btn-press">
+          <i class="fa-solid fa-play text-xs"></i> Play Quiz
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- LIVE CAMPUS AIR QUALITY & ECO BANNER (Open-Meteo Free API) -->
+  <section class="bg-gradient-to-r from-emerald-900 via-teal-900 to-emerald-950 text-white py-2.5 px-4 text-xs">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-2 text-center md:text-left">
+      <div class="flex items-center gap-2.5 flex-wrap justify-center">
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-bold border border-emerald-400/30">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> Live Campus Eco Station
+        </span>
+        <span class="text-slate-300">Air Quality Index:</span>
+        <span id="live-aqi-value" class="font-extrabold text-white text-sm">--</span>
+        <span id="live-aqi-label" class="bg-emerald-500/30 text-emerald-200 px-2 py-0.5 rounded-md font-semibold">Loading...</span>
+        <span class="hidden lg:inline text-slate-400 text-[11px]">(<span id="live-aqi-source">Open-Meteo API</span>)</span>
+      </div>
+      <div class="flex items-center gap-2 text-emerald-200">
+        <i class="fa-solid fa-lightbulb text-amber-300"></i>
+        <span id="live-aqi-tip" class="truncate max-w-md">Fetching real-time environmental data...</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- VIEW 1: LANDING & PRESENTATION SHOWCASE -->
+  <!-- ========================================== -->
+  <main id="view-landing" class="pb-24">
+
+    <!-- HERO SECTION (Faithful to Slide 1) -->
+    <section class="relative pt-12 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-b from-white to-slate-50 border-b border-slate-200">
+      
+      <!-- Decorative background blur circles -->
+      <div class="absolute -top-24 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-emerald-200/40 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
+        
+        <!-- Left Column: Title, Slogan, Problem Box & Metrics -->
+        <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+          
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-extrabold uppercase tracking-wider">
+            <i class="fa-solid fa-flask text-emerald-600"></i> Innovation & Design Thinking Lab
+          </div>
+
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-tight">
+            GREEN CAMPUS <br/>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-800">QUIZ</span>
+          </h1>
+
+          <p class="text-xl sm:text-2xl font-bold text-slate-700 leading-snug">
+            Turning environmental awareness into an interactive campus habit.
+          </p>
+
+          <!-- THE PROBLEM CARD (Directly from Slide 1) -->
+          <div class="glass-card p-6 sm:p-7 rounded-3xl border border-slate-200 shadow-sm relative overflow-hidden group">
+            <div class="absolute -top-6 -right-6 w-24 h-24 bg-rose-50 rounded-full blur-xl pointer-events-none"></div>
+            <div class="flex items-center gap-2 text-rose-600 font-extrabold text-xs uppercase tracking-widest mb-2.5">
+              <i class="fa-solid fa-circle-exclamation text-sm"></i> THE PROBLEM
+            </div>
+            <p class="text-slate-700 text-base sm:text-lg font-medium leading-relaxed">
+              Students may know that sustainability matters, but everyday green practices are easy to ignore, forget, or treat as someone else's responsibility.
+            </p>
+          </div>
+
+          <!-- 3 SLIDE METRICS (10 questions | 1 leaderboard | ∞ learning) -->
+          <div class="grid grid-cols-3 gap-3 pt-2">
+            <div class="bg-white p-4 rounded-2xl border border-slate-200 text-center shadow-xs">
+              <div class="text-3xl sm:text-4xl font-black text-slate-900">10</div>
+              <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider mt-1">questions</div>
+            </div>
+            <div class="bg-white p-4 rounded-2xl border border-slate-200 text-center shadow-xs">
+              <div class="text-3xl sm:text-4xl font-black text-emerald-600">1</div>
+              <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider mt-1">leaderboard</div>
+            </div>
+            <div class="bg-white p-4 rounded-2xl border border-slate-200 text-center shadow-xs">
+              <div class="text-3xl sm:text-4xl font-black text-teal-600">∞</div>
+              <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider mt-1">learning</div>
+            </div>
+          </div>
+
+          <!-- Daily Eco Fact Card -->
+          <div class="p-3.5 rounded-2xl bg-emerald-50/80 border border-emerald-200/80 flex items-center gap-3 text-xs text-left">
+            <span id="daily-fact-category" class="px-2.5 py-1 bg-emerald-700 text-white font-black rounded-lg uppercase text-[10px] whitespace-nowrap shadow-xs">
+              DAILY TIP
+            </span>
+            <span id="daily-eco-fact" class="text-emerald-950 font-semibold leading-relaxed">
+              Carrying a reusable water bottle saves 156 plastic bottles per student annually.
+            </span>
+          </div>
+
+          <div class="pt-4 flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
+            <button onclick="startQuizChallenge()" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-base shadow-lg shadow-emerald-600/30 hover:shadow-xl transition btn-press flex items-center justify-center gap-3">
+              <i class="fa-solid fa-bolt"></i> Start Campus Quiz Now
+            </button>
+            <button onclick="navigateTo('leaderboard')" class="w-full sm:w-auto px-6 py-4 rounded-2xl bg-white hover:bg-slate-100 text-slate-800 font-bold text-base border border-slate-200 shadow-xs transition flex items-center justify-center gap-2">
+              <i class="fa-solid fa-ranking-star text-amber-500"></i> View Campus Rankings
+            </button>
+          </div>
+
+          <p class="text-xs sm:text-sm font-semibold text-slate-500 italic pt-2">
+            "A simple idea: make sustainability measurable, memorable and fun."
+          </p>
+
+        </div>
+
+        <!-- Right Column: Interactive 3D Laptop Mockup (Matching Slide 1) -->
+        <div class="lg:col-span-5 flex justify-center">
+          <div class="laptop-mockup relative">
+            
+            <!-- Floating Decorative Eco Badge -->
+            <div class="absolute -top-5 -right-3 z-30 bg-white/95 backdrop-blur-md px-3.5 py-2 rounded-2xl shadow-xl border border-emerald-200 flex items-center gap-2 animate-float">
+              <span class="text-2xl">🌱</span>
+              <div class="text-left">
+                <span class="block text-[10px] font-bold text-emerald-800 uppercase">Live Habit</span>
+                <span class="text-xs font-extrabold text-slate-800">Eco Challenge</span>
+              </div>
+            </div>
+
+            <!-- Laptop Screen Frame -->
+            <div class="laptop-screen">
+              <div class="laptop-inner text-center">
+                <span class="w-12 h-12 rounded-2xl bg-emerald-800/10 flex items-center justify-center text-3xl mb-3 shadow-inner">
+                  🌿
+                </span>
+                <h3 class="font-black text-emerald-950 text-xl tracking-tight uppercase">GREEN CAMPUS</h3>
+                <p class="text-emerald-900 font-bold text-sm mb-5">Quiz • 10 Questions</p>
+                
+                <!-- 4 Color Option Pills from Slide 1 Screen Mockup -->
+                <div class="grid grid-cols-4 gap-2 w-full max-w-xs px-2">
+                  <div class="bg-sky-600 text-white font-bold py-2 rounded-lg text-xs shadow-sm hover:scale-105 transition cursor-pointer">A</div>
+                  <div class="bg-blue-600 text-white font-bold py-2 rounded-lg text-xs shadow-sm hover:scale-105 transition cursor-pointer">B</div>
+                  <div class="bg-amber-500 text-white font-bold py-2 rounded-lg text-xs shadow-sm hover:scale-105 transition cursor-pointer">C</div>
+                  <div class="bg-rose-600 text-white font-bold py-2 rounded-lg text-xs shadow-sm hover:scale-105 transition cursor-pointer">D</div>
+                </div>
+
+                <div class="mt-5 inline-flex items-center gap-2 bg-white/80 backdrop-blur-xs px-4 py-1.5 rounded-full text-[11px] font-bold text-emerald-900 shadow-xs">
+                  <i class="fa-solid fa-trophy text-amber-500"></i> Speed + Accuracy Ranks Top
+                </div>
+              </div>
+            </div>
+
+            <!-- Laptop Dark Green Base -->
+            <div class="laptop-base"></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 2: HOW IT WORKS (Faithful to Slide 2) -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+          How the Green Campus Quiz works
+        </h2>
+        <p class="text-base sm:text-lg text-slate-600 mt-2 font-medium">
+          A fast quiz + fair scoring + recognition system
+        </p>
+      </div>
+
+      <!-- 4 Process Cards (01 PLAY, 02 SCORE, 03 RANK, 04 REWARD) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- 01 PLAY -->
+        <div class="glass-card glass-card-hover p-6 rounded-3xl border border-slate-200 relative flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-2xl bg-sky-600 text-white font-extrabold flex items-center justify-center text-sm shadow-md mb-6">
+              01
+            </div>
+            <h3 class="text-2xl font-black text-slate-900 mb-2">PLAY</h3>
+            <p class="text-slate-600 text-sm font-medium leading-relaxed">
+              10 questions on recycling, waste, energy & climate.
+            </p>
+          </div>
+          <div class="mt-8 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-sky-700 font-bold">
+            <span>20s timer per question</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </div>
+        </div>
+
+        <!-- 02 SCORE -->
+        <div class="glass-card glass-card-hover p-6 rounded-3xl border border-slate-200 relative flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-2xl bg-teal-600 text-white font-extrabold flex items-center justify-center text-sm shadow-md mb-6">
+              02
+            </div>
+            <h3 class="text-2xl font-black text-slate-900 mb-2">SCORE</h3>
+            <p class="text-slate-600 text-sm font-medium leading-relaxed">
+              Track correct answers and completion time.
+            </p>
+          </div>
+          <div class="mt-8 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-teal-700 font-bold">
+            <span>Instant points tally</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </div>
+        </div>
+
+        <!-- 03 RANK -->
+        <div class="glass-card glass-card-hover p-6 rounded-3xl border border-slate-200 relative flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-2xl bg-rose-600 text-white font-extrabold flex items-center justify-center text-sm shadow-md mb-6">
+              03
+            </div>
+            <h3 class="text-2xl font-black text-slate-900 mb-2">RANK</h3>
+            <p class="text-slate-600 text-sm font-medium leading-relaxed">
+              Compare results on a campus leaderboard.
+            </p>
+          </div>
+          <div class="mt-8 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-rose-700 font-bold">
+            <span>Departmental rankings</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </div>
+        </div>
+
+        <!-- 04 REWARD -->
+        <div class="glass-card glass-card-hover p-6 rounded-3xl border border-slate-200 relative flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-2xl bg-lime-600 text-white font-extrabold flex items-center justify-center text-sm shadow-md mb-6">
+              04
+            </div>
+            <h3 class="text-2xl font-black text-slate-900 mb-2">REWARD</h3>
+            <p class="text-slate-600 text-sm font-medium leading-relaxed">
+              Top performers receive useful vouchers.
+            </p>
+          </div>
+          <div class="mt-8 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-lime-700 font-bold">
+            <span>Cafe & Stationery vouchers</span>
+            <i class="fa-solid fa-gift"></i>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- LEADERBOARD RULE HIGHLIGHT CARD (Exact Slide 2 Rule) -->
+      <div class="mt-12 bg-white rounded-3xl p-6 sm:p-8 border-2 border-emerald-500/40 shadow-md flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="flex items-center gap-4">
+          <div class="w-14 h-14 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center text-3xl flex-shrink-0 shadow-sm">
+            🏆
+          </div>
+          <div>
+            <span class="text-xs font-black uppercase tracking-wider text-emerald-800">Fair Scoring System</span>
+            <h4 class="text-lg sm:text-xl font-bold text-slate-900">
+              Leaderboard rule: <span class="text-emerald-700 font-extrabold">Highest correct score first; if tied, the faster completion time ranks higher.</span>
+            </h4>
+          </div>
+        </div>
+        <button onclick="navigateTo('leaderboard')" class="px-6 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs uppercase tracking-wider transition whitespace-nowrap btn-press">
+          See Current Rankings
+        </button>
+      </div>
+    </section>
+
+    <!-- SECTION 3: MOBILE CAMPUS CHALLENGE JOURNEY (Faithful to Slide 3) -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-slate-900 text-white rounded-3xl max-w-7xl mx-auto my-12 overflow-hidden relative shadow-2xl">
+      
+      <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Left: Phone Mockup matching Slide 3 -->
+        <div class="lg:col-span-5 flex justify-center order-2 lg:order-1">
+          <div class="phone-mockup w-full">
+            <div class="phone-notch"></div>
+            <div class="phone-screen p-5 text-slate-800">
+              
+              <!-- Phone Header -->
+              <div class="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
+                <span class="text-xs font-black text-emerald-800">GREEN CAMPUS QUIZ</span>
+                <span class="text-xs font-bold text-slate-500">Demo Preview</span>
+              </div>
+
+              <!-- Question progress & countdown -->
+              <div class="flex items-center justify-between text-xs font-bold text-slate-600 mb-2">
+                <span>4 / 10</span>
+                <span class="text-rose-600"><i class="fa-regular fa-clock"></i> 20 sec</span>
+              </div>
+              
+              <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden mb-6">
+                <div class="bg-emerald-500 h-full w-[40%] rounded-full"></div>
+              </div>
+
+              <!-- Question Text from Slide 3 -->
+              <h4 class="font-extrabold text-slate-900 text-lg mb-6 leading-tight">
+                Which action reduces waste on campus?
+              </h4>
+
+              <!-- Mock Options -->
+              <div class="space-y-2.5 mb-6">
+                <div class="p-3 rounded-xl border-2 border-emerald-500 bg-emerald-50 text-emerald-950 font-bold text-xs flex items-center justify-between shadow-xs">
+                  <span>A. Carry a reusable bottle</span>
+                  <i class="fa-solid fa-circle-check text-emerald-600"></i>
+                </div>
+                <div class="p-3 rounded-xl border border-slate-200 bg-white text-slate-700 font-medium text-xs">
+                  B. Use extra plastic cups
+                </div>
+                <div class="p-3 rounded-xl border border-slate-200 bg-white text-slate-700 font-medium text-xs">
+                  C. Print every notice
+                </div>
+                <div class="p-3 rounded-xl border border-slate-200 bg-white text-slate-700 font-medium text-xs">
+                  D. Leave lights on
+                </div>
+              </div>
+
+              <button onclick="startQuizChallenge()" class="w-full py-3 rounded-xl bg-emerald-700 text-white font-extrabold text-xs uppercase tracking-wider text-center shadow-md">
+                SUBMIT ANSWER
+              </button>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Slide 3 Pillars & Design Principle -->
+        <div class="lg:col-span-7 space-y-8 order-1 lg:order-2">
+          
+          <div>
+            <span class="text-xs font-extrabold uppercase tracking-widest text-emerald-400">02 / IDEATE</span>
+            <h2 class="text-3xl sm:text-5xl font-black text-white tracking-tight mt-1">
+              Make the quiz feel like a mini campus challenge.
+            </h2>
+            <p class="text-slate-300 text-base sm:text-lg mt-3 font-medium">
+              The student journey — designed for speed, feedback and fun
+            </p>
+          </div>
+
+          <!-- 4 Pillars from Slide 3 -->
+          <div class="space-y-4">
+            
+            <div class="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-xs">
+              <div class="w-12 h-12 rounded-xl bg-amber-500 text-slate-950 font-black flex items-center justify-center text-xl shadow-md">
+                ⚡
+              </div>
+              <div class="flex-1">
+                <h4 class="font-extrabold text-white text-base">FAST</h4>
+                <p class="text-slate-400 text-xs sm:text-sm">10 short questions, under 2 minutes</p>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-xs">
+              <div class="w-12 h-12 rounded-xl bg-teal-500 text-white font-black flex items-center justify-center text-xl shadow-md">
+                📊
+              </div>
+              <div class="flex-1">
+                <h4 class="font-extrabold text-white text-base">LIVE SCORE</h4>
+                <p class="text-slate-400 text-xs sm:text-sm">Instant points and environmental insights</p>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-xs">
+              <div class="w-12 h-12 rounded-xl bg-rose-500 text-white font-black flex items-center justify-center text-xl shadow-md">
+                🏆
+              </div>
+              <div class="flex-1">
+                <h4 class="font-extrabold text-white text-base">RANK</h4>
+                <p class="text-slate-400 text-xs sm:text-sm">Campus leaderboard comparing departments</p>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-xs">
+              <div class="w-12 h-12 rounded-xl bg-lime-500 text-slate-950 font-black flex items-center justify-center text-xl shadow-md">
+                🎁
+              </div>
+              <div class="flex-1">
+                <h4 class="font-extrabold text-white text-base">REWARD</h4>
+                <p class="text-slate-400 text-xs sm:text-sm">Voucher / stationery & green merchandise</p>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Slide 3 Design Principle Box -->
+          <div class="p-5 rounded-2xl bg-emerald-950/80 border border-emerald-500/40 text-emerald-200 text-sm font-semibold flex items-center gap-3">
+            <i class="fa-solid fa-quote-left text-2xl text-emerald-400"></i>
+            <span>Design principle: <strong class="text-white">instant feedback keeps the learner inside the experience.</strong></span>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 4: SYSTEM FLOW & TECHNOLOGY (Faithful to Slide 4) -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <span class="text-xs font-extrabold uppercase tracking-widest text-emerald-700">03 / PROTOTYPE</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mt-1">
+          From idea to working website.
+        </h2>
+        <p class="text-slate-600 text-sm sm:text-base mt-2">
+          A practical student-built stack with clear system flow
+        </p>
+      </div>
+
+      <!-- System Flow Pipeline -->
+      <div class="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mb-16">
+        
+        <div class="px-5 py-3 rounded-2xl bg-white border border-slate-200 shadow-xs flex items-center gap-3">
+          <span class="w-8 h-8 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center text-xs">1</span>
+          <div class="text-left">
+            <span class="block text-xs font-extrabold text-slate-900">USER</span>
+            <span class="text-[11px] text-slate-500">Starts quiz</span>
+          </div>
+        </div>
+
+        <i class="fa-solid fa-arrow-right text-slate-300 hidden sm:block"></i>
+
+        <div class="px-5 py-3 rounded-2xl bg-white border border-slate-200 shadow-xs flex items-center gap-3">
+          <span class="w-8 h-8 rounded-full bg-teal-800 text-white font-bold flex items-center justify-center text-xs">2</span>
+          <div class="text-left">
+            <span class="block text-xs font-extrabold text-slate-900">QUIZ ENGINE</span>
+            <span class="text-[11px] text-slate-500">Loads questions + timer</span>
+          </div>
+        </div>
+
+        <i class="fa-solid fa-arrow-right text-slate-300 hidden sm:block"></i>
+
+        <div class="px-5 py-3 rounded-2xl bg-white border border-slate-200 shadow-xs flex items-center gap-3">
+          <span class="w-8 h-8 rounded-full bg-rose-600 text-white font-bold flex items-center justify-center text-xs">3</span>
+          <div class="text-left">
+            <span class="block text-xs font-extrabold text-slate-900">SCORING</span>
+            <span class="text-[11px] text-slate-500">Correct answers + time</span>
+          </div>
+        </div>
+
+        <i class="fa-solid fa-arrow-right text-slate-300 hidden sm:block"></i>
+
+        <div class="px-5 py-3 rounded-2xl bg-white border border-slate-200 shadow-xs flex items-center gap-3">
+          <span class="w-8 h-8 rounded-full bg-blue-700 text-white font-bold flex items-center justify-center text-xs">4</span>
+          <div class="text-left">
+            <span class="block text-xs font-extrabold text-slate-900">LEADERBOARD</span>
+            <span class="text-[11px] text-slate-500">Sorts top performers</span>
+          </div>
+        </div>
+
+        <i class="fa-solid fa-arrow-right text-slate-300 hidden sm:block"></i>
+
+        <div class="px-5 py-3 rounded-2xl bg-white border border-slate-200 shadow-xs flex items-center gap-3">
+          <span class="w-8 h-8 rounded-full bg-lime-600 text-white font-bold flex items-center justify-center text-xs">5</span>
+          <div class="text-left">
+            <span class="block text-xs font-extrabold text-slate-900">REWARD</span>
+            <span class="text-[11px] text-slate-500">Shows winners</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Slide 4 Technology Pills -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs text-center">
+          <span class="inline-block px-3 py-1 rounded-md bg-rose-600 text-white font-black text-xs mb-2">HTML</span>
+          <p class="text-xs font-bold text-slate-600">Structure</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs text-center">
+          <span class="inline-block px-3 py-1 rounded-md bg-blue-600 text-white font-black text-xs mb-2">CSS</span>
+          <p class="text-xs font-bold text-slate-600">Visual design</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs text-center">
+          <span class="inline-block px-3 py-1 rounded-md bg-amber-500 text-white font-black text-xs mb-2">JavaScript</span>
+          <p class="text-xs font-bold text-slate-600">Quiz logic</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs text-center">
+          <span class="inline-block px-3 py-1 rounded-md bg-lime-600 text-white font-black text-xs mb-2">Storage</span>
+          <p class="text-xs font-bold text-slate-600">Scores / ranking</p>
+        </div>
+      </div>
+
+      <!-- MVP GOAL Pill -->
+      <div class="mt-8 text-center">
+        <span class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-emerald-100 text-emerald-900 font-extrabold text-xs tracking-wider">
+          <i class="fa-solid fa-flag-checkered"></i> MVP GOAL: Simple • mobile • fast
+        </span>
+      </div>
+
+    </section>
+
+    <!-- SECTION 5: IMPACT & TEAM PARTICLES (Faithful to Slide 5) -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-slate-950 text-white">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-left mb-12">
+          <span class="text-xs font-extrabold uppercase tracking-widest text-emerald-400">04 / TEST + IMPACT</span>
+          <h2 class="text-3xl sm:text-5xl font-black text-white tracking-tight mt-1">
+            A greener campus starts
+          </h2>
+          <p class="text-slate-400 text-base sm:text-lg mt-3 max-w-2xl">
+            We measure more than marks: participation, completion, feedback and repeat engagement.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          <!-- 4 Impact Dimensions from Slide 5 -->
+          <div class="lg:col-span-7 space-y-6">
+            
+            <div class="flex items-center gap-4">
+              <span class="w-10 h-10 rounded-full bg-teal-900 border border-teal-500/40 text-teal-300 font-extrabold flex items-center justify-center text-xs flex-shrink-0">
+                01
+              </span>
+              <div>
+                <span class="text-xs font-extrabold uppercase tracking-wider text-teal-400">AWARENESS</span>
+                <p class="text-slate-300 text-sm font-medium">Students learn while playing.</p>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-4">
+              <span class="w-10 h-10 rounded-full bg-blue-900 border border-blue-500/40 text-blue-300 font-extrabold flex items-center justify-center text-xs flex-shrink-0">
+                02
+              </span>
+              <div>
+                <span class="text-xs font-extrabold uppercase tracking-wider text-blue-400">ENGAGEMENT</span>
+                <p class="text-slate-300 text-sm font-medium">Competition creates participation.</p>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-4">
+              <span class="w-10 h-10 rounded-full bg-rose-900 border border-rose-500/40 text-rose-300 font-extrabold flex items-center justify-center text-xs flex-shrink-0">
+                03
+              </span>
+              <div>
+                <span class="text-xs font-extrabold uppercase tracking-wider text-rose-400">RECOGNITION</span>
+                <p class="text-slate-300 text-sm font-medium">Top performers get visible rewards.</p>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-4">
+              <span class="w-10 h-10 rounded-full bg-emerald-900 border border-emerald-500/40 text-emerald-300 font-extrabold flex items-center justify-center text-xs flex-shrink-0">
+                04
+              </span>
+              <div>
+                <span class="text-xs font-extrabold uppercase tracking-wider text-emerald-400">ACTION</span>
+                <p class="text-slate-300 text-sm font-medium">Small choices become repeat habits.</p>
+              </div>
+            </div>
+
+            <!-- Team Particles Credit Line -->
+            <div class="pt-8 border-t border-slate-800 flex items-center gap-3">
+              <div class="h-8 w-1.5 bg-lime-400 rounded-full"></div>
+              <div>
+                <h4 class="text-lg font-black tracking-wider text-lime-400">TEAM PARTICLES</h4>
+                <p class="text-xs text-slate-400">Innovation • Sustainability • Student participation</p>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right Card: THE BIG IDEA -->
+          <div class="lg:col-span-5">
+            <div class="bg-white rounded-3xl p-8 text-slate-900 shadow-2xl relative">
+              <span class="text-[11px] font-black uppercase tracking-wider text-emerald-700">THE BIG IDEA</span>
+              
+              <div class="my-6 space-y-2 text-2xl sm:text-3xl font-black">
+                <div class="text-slate-900">PLAY</div>
+                <div class="text-emerald-600">→ LEARN</div>
+                <div class="text-amber-500">→ COMPETE</div>
+                <div class="text-teal-600">→ ACT</div>
+              </div>
+
+              <button onclick="startQuizChallenge()" class="w-full py-4 rounded-2xl bg-emerald-800 hover:bg-emerald-900 text-white font-extrabold text-sm uppercase tracking-wider shadow-lg transition btn-press">
+                GREEN CAMPUS QUIZ
+              </button>
+
+              <div class="mt-6 pt-4 border-t border-slate-200 text-center">
+                <span class="text-xs font-bold text-slate-500">THANK YOU</span>
+                <p class="text-[11px] text-slate-400 mt-1">Innovation &bull; Sustainability &bull; Student participation</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- ========================================== -->
+  <!-- VIEW 2: QUIZ CHALLENGE VIEW -->
+  <!-- ========================================== -->
+  <section id="view-quiz" class="hidden min-h-[85vh] py-12 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+    
+    <!-- Active Quiz Question Container -->
+    <div id="quiz-question-box" class="glass-card rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-xl relative overflow-hidden">
+      
+      <!-- Top Meta Bar: Category, Total Timer, Question Count -->
+      <div class="flex items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-100">
+        <div class="flex items-center gap-2">
+          <span id="quiz-category-badge" class="text-xs font-bold px-3 py-1 rounded-full text-white bg-emerald-600">
+            Sustainability
+          </span>
+          <span id="quiz-progress-text" class="text-xs font-black text-slate-500">1 / 10</span>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <!-- Total Elapsed Time -->
+          <div class="flex items-center gap-1.5 text-xs font-bold text-slate-600 bg-slate-100 px-3 py-1.5 rounded-full">
+            <i class="fa-regular fa-clock text-slate-400"></i>
+            <span id="quiz-overall-timer">00:00</span>
+          </div>
+
+          <!-- Question Bonus 20s Countdown (Slide 3) -->
+          <div class="flex items-center gap-1.5 text-xs font-bold text-rose-600 bg-rose-50 px-3 py-1.5 rounded-full">
+            <i class="fa-solid fa-hourglass-half animate-spin" style="animation-duration: 4s;"></i>
+            <span id="question-countdown-display">20s</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Question 20-second Countdown bar -->
+      <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden mb-8">
+        <div id="question-countdown-bar" class="bg-gradient-to-r from-emerald-500 via-amber-500 to-rose-500 h-full w-full transition-all duration-1000 ease-linear"></div>
+      </div>
+
+      <!-- Overall Quiz Progress Bar -->
+      <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden mb-8">
+        <div id="quiz-progress-bar" class="bg-emerald-600 h-full w-[10%] rounded-full transition-all duration-300"></div>
+      </div>
+
+      <!-- Question Title -->
+      <h3 id="quiz-question-text" class="text-xl sm:text-2xl font-black text-slate-900 leading-snug mb-8 min-h-[64px]">
+        Loading question...
+      </h3>
+
+      <!-- Options Container (A, B, C, D) -->
+      <div id="quiz-options-container" class="space-y-3.5 mb-8">
+        <!-- Rendered dynamically by QuizEngine -->
+      </div>
+
+      <!-- Slide 3 Instant Feedback Micro-card -->
+      <div id="quiz-feedback-box" class="hidden mb-6 p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200 text-sm">
+        <div id="feedback-title" class="font-bold text-sm mb-1.5">
+          <!-- e.g. Correct Answer! or Nice try! -->
+        </div>
+        <p id="feedback-explanation" class="text-slate-600 leading-relaxed text-xs sm:text-sm">
+          <!-- Explanation text -->
+        </p>
+      </div>
+
+      <!-- Next Action Button -->
+      <div class="flex justify-end">
+        <button id="quiz-next-btn" onclick="handleNextQuestion()" class="hidden px-8 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-sm uppercase tracking-wider shadow-lg transition btn-press flex items-center gap-2">
+          <span>Next Question</span>
+          <i class="fa-solid fa-arrow-right text-xs"></i>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Quiz Completion Summary Card -->
+    <div id="quiz-summary-card" class="hidden glass-card rounded-3xl p-8 sm:p-12 border border-slate-200 shadow-xl text-center">
+      <div class="w-20 h-20 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center text-4xl mx-auto mb-6 shadow-sm">
+        🎉
+      </div>
+
+      <span class="text-xs font-black uppercase tracking-widest text-emerald-700">CAMPUS CHALLENGE COMPLETE</span>
+      <h2 class="text-3xl sm:text-4xl font-black text-slate-900 mt-2 mb-3">Well Done, Eco Leader!</h2>
+      <p id="summary-message" class="text-slate-600 text-sm sm:text-base max-w-lg mx-auto mb-8 font-medium">
+        Your score has been registered on the campus leaderboard.
+      </p>
+
+      <!-- Results Grid -->
+      <div class="grid grid-cols-2 gap-4 max-w-md mx-auto mb-8">
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
+          <span class="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">Score</span>
+          <span id="summary-score" class="text-3xl font-black text-emerald-600">-- / 10</span>
+        </div>
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
+          <span class="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">Time Elapsed</span>
+          <span id="summary-time" class="text-3xl font-black text-slate-900">--:--</span>
+        </div>
+      </div>
+
+      <!-- CTA Buttons -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <button onclick="navigateTo('leaderboard')" class="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm shadow-md transition flex items-center justify-center gap-2">
+          <i class="fa-solid fa-trophy text-amber-400"></i> View Leaderboard
+        </button>
+        <button onclick="navigateTo('rewards')" class="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-md transition flex items-center justify-center gap-2">
+          <i class="fa-solid fa-gift"></i> Claim Vouchers
+        </button>
+        <button onclick="startQuizChallenge()" class="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-white hover:bg-slate-100 text-slate-700 font-bold text-sm border border-slate-300 transition flex items-center justify-center gap-2">
+          <i class="fa-solid fa-rotate-right"></i> Retake
+        </button>
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- ========================================== -->
+  <!-- VIEW 3: LEADERBOARD VIEW -->
+  <!-- ========================================== -->
+  <section id="view-leaderboard" class="hidden min-h-[85vh] py-12 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
+    
+    <div class="text-center max-w-2xl mx-auto mb-10">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-900 text-xs font-bold mb-3">
+        <i class="fa-solid fa-trophy text-amber-500"></i> Campus Recognition Board
+      </div>
+      <h2 class="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
+        Campus Sustainability Leaderboard
+      </h2>
+      <p class="text-xs sm:text-sm text-slate-600 mt-2 font-medium">
+        Rule: Highest score first; if tied, faster completion time ranks higher.
+      </p>
+    </div>
+
+    <!-- Top 3 Podium -->
+    <div id="podium-container" class="grid grid-cols-3 gap-3 sm:gap-6 max-w-2xl mx-auto mb-12 items-end">
+      <!-- Injected by LeaderboardManager -->
+    </div>
+
+    <!-- Filters & Search Toolbar -->
+    <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
+      
+      <!-- Department Selector -->
+      <div class="w-full sm:w-auto flex items-center gap-2">
+        <label for="leaderboard-dept-filter" class="text-xs font-bold text-slate-500 whitespace-nowrap">Department:</label>
+        <select id="leaderboard-dept-filter" class="w-full sm:w-auto text-xs font-semibold bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-slate-800 focus:outline-emerald-500">
+          <option value="ALL">All Departments</option>
+          <option value="School of Environmental Science">School of Environmental Science</option>
+          <option value="School of Engineering">School of Engineering</option>
+          <option value="School of Design & Architecture">School of Design & Architecture</option>
+          <option value="School of Management">School of Management</option>
+          <option value="School of Medicine & Health">School of Medicine & Health</option>
+        </select>
+      </div>
+
+      <!-- Search Field -->
+      <div class="w-full sm:w-64 relative">
+        <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+        <input type="text" id="leaderboard-search-input" placeholder="Search student or ID..." 
+          class="w-full text-xs pl-8 pr-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-slate-800 focus:outline-emerald-500">
+      </div>
+
+    </div>
+
+    <!-- Leaderboard Full List -->
+    <div class="glass-card rounded-3xl p-4 sm:p-6 border border-slate-200 shadow-sm">
+      <div id="leaderboard-list" class="space-y-2.5">
+        <!-- Injected by LeaderboardManager -->
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- ========================================== -->
+  <!-- VIEW 4: REWARDS & VOUCHERS VIEW -->
+  <!-- ========================================== -->
+  <section id="view-rewards" class="hidden min-h-[85vh] py-12 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+    
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <span class="text-xs font-extrabold uppercase tracking-widest text-emerald-700">04 / REWARDS & VOUCHERS</span>
+      <h2 class="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight mt-1">
+        Campus Sustainability Rewards
+      </h2>
+      <p class="text-slate-600 text-sm sm:text-base mt-2">
+        Earn high scores on the 10-question quiz to unlock real vouchers, eco-stationery, and certificates!
+      </p>
+    </div>
+
+    <!-- Official Certificate Banner CTA -->
+    <div class="mb-12 bg-gradient-to-r from-emerald-800 to-teal-900 rounded-3xl p-6 sm:p-8 text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
+      <div class="flex items-center gap-5">
+        <div class="w-16 h-16 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center text-3xl shadow-inner flex-shrink-0">
+          🎓
+        </div>
+        <div>
+          <span class="text-xs font-black uppercase tracking-wider text-emerald-300">Official Recognition</span>
+          <h3 class="text-xl sm:text-2xl font-black">Green Campus Sustainability Certificate</h3>
+          <p class="text-xs sm:text-sm text-emerald-100/80 mt-1 max-w-xl">
+            Issued by Innovation & Design Thinking Lab (Team Particles). Verifies your campus sustainability leadership.
+          </p>
+        </div>
+      </div>
+      <button onclick="window.rewardsManager.downloadCertificate()" class="px-6 py-3.5 rounded-2xl bg-white hover:bg-emerald-50 text-emerald-950 font-black text-xs uppercase tracking-wider shadow-lg transition whitespace-nowrap btn-press flex items-center gap-2">
+        <i class="fa-solid fa-download text-emerald-600"></i> Download Certificate
+      </button>
+    </div>
+
+    <!-- Rewards Grid (Cafe, Stationery, Flask, Champion Lunch) -->
+    <div id="rewards-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Injected by RewardsManager -->
+    </div>
+
+  </section>
+
+
+  <!-- ========================================== -->
+  <!-- MODAL: AUTHENTICATION (LOGIN & REGISTER) -->
+  <!-- ========================================== -->
+  <div id="auth-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-slate-100 relative">
+      
+      <!-- Close Button -->
+      <button onclick="closeAuthModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 text-lg">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <!-- Header Tabs: Sign In / Register -->
+      <div class="flex border-b border-slate-200 mb-6">
+        <button id="tab-login-btn" onclick="switchAuthTab('login')" class="flex-1 pb-3 text-sm border-b-2 border-emerald-600 text-emerald-700 font-bold transition">
+          Sign In
+        </button>
+        <button id="tab-register-btn" onclick="switchAuthTab('register')" class="flex-1 pb-3 text-sm text-slate-400 font-semibold transition">
+          Register Student
+        </button>
+      </div>
+
+      <!-- FORM 1: LOGIN -->
+      <div id="login-form-container">
+        <form id="auth-login-form" class="space-y-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Student ID or Campus Email</label>
+            <input type="text" id="login-id" required placeholder="e.g. STU-2026-104 or user@campus.edu"
+              class="w-full text-sm px-4 py-2.5 bg-slate-50 border border-slate-300 rounded-xl focus:outline-emerald-500 text-slate-800">
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Password</label>
+            <input type="password" id="login-password" required placeholder="••••••••"
+              class="w-full text-sm px-4 py-2.5 bg-slate-50 border border-slate-300 rounded-xl focus:outline-emerald-500 text-slate-800">
+          </div>
+
+          <div id="login-error" class="hidden text-xs text-rose-600 bg-rose-50 p-2.5 rounded-lg font-medium"></div>
+
+          <button type="submit" class="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-md transition btn-press">
+            Sign In & Save Records
+          </button>
+        </form>
+
+        <!-- Quick Demo Accounts -->
+        <div class="mt-6 pt-5 border-t border-slate-200 text-center">
+          <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-2.5">Quick Demo Logins</span>
+          <div class="grid grid-cols-2 gap-2 text-xs">
+            <button onclick="loginAsDemo(0)" class="py-2 px-3 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-900 font-bold transition">
+              🌱 Aarav (Score 10)
+            </button>
+            <button onclick="loginAsDemo(1)" class="py-2 px-3 rounded-lg bg-teal-50 hover:bg-teal-100 text-teal-900 font-bold transition">
+              ⚡ Sarah (Score 10)
+            </button>
+          </div>
+          <button onclick="loginAsGuestUser()" class="mt-2 text-xs text-slate-500 hover:text-emerald-700 font-semibold underline">
+            Continue as Guest Explorer
+          </button>
+        </div>
+      </div>
+
+      <!-- FORM 2: REGISTER -->
+      <div id="register-form-container" class="hidden">
+        <form id="auth-register-form" class="space-y-3.5">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Full Name</label>
+            <input type="text" id="reg-name" required placeholder="e.g. Jordan Miller"
+              class="w-full text-sm px-3.5 py-2 bg-slate-50 border border-slate-300 rounded-xl focus:outline-emerald-500 text-slate-800">
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Campus Email</label>
+              <input type="email" id="reg-email" required placeholder="jordan@campus.edu"
+                class="w-full text-sm px-3.5 py-2 bg-slate-50 border border-slate-300 rounded-xl focus:outline-emerald-500 text-slate-800">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Student ID (Optional)</label>
+              <input type="text" id="reg-id" placeholder="STU-2026-901"
+                class="w-full text-sm px-3.5 py-2 bg-slate-50 border border-slate-300 rounded-xl focus:outline-emerald-500 text-slate-800">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Department / School</label>
+            <select id="reg-dept" class="w-full text-xs font-semibold px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-slate-800">
+              <option value="School of Environmental Science">School of Environmental Science</option>
+              <option value="School of Engineering">School of Engineering</option>
+              <option value="School of Design & Architecture">School of Design & Architecture</option>
+              <option value="School of Management">School of Management</option>
+              <option value="School of Medicine & Health">School of Medicine & Health</option>
+              <option value="General Campus Studies">General Campus Studies</option>
+            </select>
+          </div>
+
+          <!-- Avatar Picker -->
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1.5">Choose Eco Avatar</label>
+            <div class="flex items-center justify-between gap-2">
+              <button type="button" data-avatar="🌱" class="avatar-select-btn w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-lg ring-4 ring-emerald-500 bg-emerald-100">🌱</button>
+              <button type="button" data-avatar="⚡" class="avatar-select-btn w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-lg">⚡</button>
+              <button type="button" data-avatar="💧" class="avatar-select-btn w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-lg">💧</button>
+              <button type="button" data-avatar="♻️" class="avatar-select-btn w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-lg">♻️</button>
+              <button type="button" data-avatar="🌳" class="avatar-select-btn w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-lg">🌳</button>
+              <button type="button" data-avatar="🚲" class="avatar-select-btn w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-lg">🚲</button>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Create Password</label>
+            <input type="password" id="reg-password" required placeholder="••••••••"
+              class="w-full text-sm px-3.5 py-2 bg-slate-50 border border-slate-300 rounded-xl focus:outline-emerald-500 text-slate-800">
+          </div>
+
+          <div id="reg-error" class="hidden text-xs text-rose-600 bg-rose-50 p-2.5 rounded-lg font-medium"></div>
+
+          <button type="submit" class="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-md transition btn-press">
+            Create Student Account
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ========================================== -->
+  <!-- MODAL: USER PROFILE & SAVED RECORDS -->
+  <!-- ========================================== -->
+  <div id="profile-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-slate-100 relative max-h-[90vh] overflow-y-auto">
+      
+      <!-- Close Button -->
+      <button onclick="closeProfileModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 text-lg">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <!-- Profile Header -->
+      <div class="flex items-center gap-4 mb-6 pb-6 border-b border-slate-100">
+        <div id="profile-avatar" class="w-16 h-16 rounded-2xl bg-emerald-100 border-2 border-emerald-500 flex items-center justify-center text-3xl shadow-sm">
+          🌱
+        </div>
+        <div class="min-w-0 flex-1">
+          <h3 id="profile-name" class="text-xl font-black text-slate-900 truncate">Student Name</h3>
+          <p id="profile-dept" class="text-xs text-emerald-700 font-semibold truncate">School of Environmental Science</p>
+          <p class="text-xs text-slate-400">ID: <span id="profile-id">STU-2026-000</span></p>
+        </div>
+      </div>
+
+      <!-- Quick Stats Quad -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6 text-center">
+        <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+          <span class="block text-[10px] font-bold text-slate-400 uppercase">Campus Rank</span>
+          <span id="profile-rank" class="text-sm font-black text-emerald-700">#1</span>
+        </div>
+        <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+          <span class="block text-[10px] font-bold text-slate-400 uppercase">Best Score</span>
+          <span id="profile-best-score" class="text-sm font-black text-slate-900">10/10</span>
+        </div>
+        <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+          <span class="block text-[10px] font-bold text-slate-400 uppercase">Best Time</span>
+          <span id="profile-best-time" class="text-sm font-black text-slate-900">00:38</span>
+        </div>
+        <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+          <span class="block text-[10px] font-bold text-slate-400 uppercase">Eco Points</span>
+          <span id="profile-points" class="text-sm font-black text-teal-600">380</span>
+        </div>
+      </div>
+
+      <!-- Earned Badges -->
+      <div class="mb-6">
+        <span class="block text-xs font-black text-slate-700 uppercase tracking-wider mb-2">Earned Badges</span>
+        <div id="profile-badges" class="flex flex-wrap gap-2">
+          <!-- Badges injected -->
+        </div>
+      </div>
+
+      <!-- Quiz Attempts History Table -->
+      <div class="mb-6">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs font-black text-slate-700 uppercase tracking-wider">Attempt History</span>
+          <span class="text-xs text-slate-400">Quizzes taken: <strong id="profile-quizzes-count" class="text-slate-700">0</strong></span>
+        </div>
+        <div class="max-h-40 overflow-y-auto border border-slate-200 rounded-xl">
+          <table class="w-full text-left">
+            <thead class="bg-slate-50 text-[11px] font-bold text-slate-500 uppercase border-b border-slate-200">
+              <tr>
+                <th class="p-2.5">#</th>
+                <th class="p-2.5">Date</th>
+                <th class="p-2.5">Score</th>
+                <th class="p-2.5">Time</th>
+              </tr>
+            </thead>
+            <tbody id="profile-history">
+              <!-- History rows injected -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Footer Actions -->
+      <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+        <button onclick="handleLogout()" class="text-xs font-bold text-rose-600 hover:text-rose-700 flex items-center gap-1.5">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i> Sign Out
+        </button>
+        <button onclick="startQuizChallenge(); closeProfileModal();" class="py-2.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase tracking-wider shadow-sm transition btn-press">
+          Take Another Quiz
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ========================================== -->
+  <!-- MODAL: CLAIM / VIEW VOUCHER PASS -->
+  <!-- ========================================== -->
+  <div id="voucher-claim-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-sm w-full p-6 text-center shadow-2xl border border-slate-100 relative">
+      
+      <button onclick="window.rewardsManager.closeClaimModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-lg">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <span id="modal-voucher-icon" class="w-16 h-16 rounded-2xl bg-emerald-100 text-emerald-800 flex items-center justify-center text-3xl mx-auto mb-3 shadow-xs">
+        ☕
+      </span>
+
+      <span class="text-[10px] font-extrabold uppercase tracking-widest text-emerald-700">CAMPUS VOUCHER PASS</span>
+      <h3 id="modal-voucher-title" class="text-xl font-black text-slate-900 mt-1 mb-1">Reward Title</h3>
+      <p id="modal-voucher-sponsor" class="text-xs text-slate-500 font-medium mb-4">Sponsor</p>
+
+      <!-- Scannable QR Code Canvas -->
+      <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 inline-block mb-4 shadow-inner">
+        <canvas id="voucher-qr-canvas" class="mx-auto rounded-lg"></canvas>
+      </div>
+
+      <!-- Voucher Code -->
+      <div class="bg-emerald-50 border border-emerald-300 p-3 rounded-xl mb-4">
+        <span class="block text-[10px] font-bold text-emerald-800 uppercase tracking-wider">Voucher Redemption Code</span>
+        <span id="modal-voucher-code" class="text-sm font-mono font-black text-emerald-950 tracking-wider">GCQ-0000</span>
+      </div>
+
+      <div class="text-left text-xs text-slate-600 space-y-1 mb-6 bg-slate-50 p-3 rounded-xl border border-slate-200">
+        <p><strong>Holder:</strong> <span id="modal-voucher-holder">Student</span></p>
+        <p><strong>Redeem at:</strong> <span id="modal-voucher-location">Campus Center</span></p>
+      </div>
+
+      <button onclick="window.rewardsManager.closeClaimModal(); showToast('Voucher pass ready for redemption at desk! 🎟️');" 
+        class="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase tracking-wider shadow-md transition btn-press">
+        Done / Saved to Records
+      </button>
+
+    </div>
+  </div>
+
+
+  <!-- GLOBAL TOAST NOTIFICATION -->
+  <div id="global-toast" class="fixed bottom-6 right-6 z-50 max-w-sm bg-slate-900 text-white px-5 py-3.5 rounded-2xl shadow-2xl border border-slate-700 flex items-center gap-3 opacity-0 translate-y-12 transition-all duration-300 pointer-events-none">
+    <div class="w-7 h-7 rounded-full bg-emerald-500 text-white flex items-center justify-center text-xs flex-shrink-0">
+      <i class="fa-solid fa-check"></i>
+    </div>
+    <span id="toast-text" class="text-xs sm:text-sm font-medium">Notification message</span>
+  </div>
+
+
+  <!-- SCRIPTS -->
+  
+  
+  
+  
+  
+  
+
+<script>
+
+/* --- api.js --- */
+/**
+ * Green Campus API Service
+ * Integrates real-time Air Quality data, Campus Eco Metrics & dynamic tips.
+ */
+
+const EcoAPI = {
+  // Campus coordinates (can be customized or geolocated)
+  defaultCoords: { lat: 28.6139, lon: 77.2090, city: "Green Campus Central" },
+
+  // Curated Daily Sustainability Facts & Campus Tips
+  ecoFacts: [
+    {
+      fact: "Carrying a reusable water bottle saves on average 156 single-use plastic bottles per student every academic year.",
+      category: "Waste Reduction",
+      impact: "12.5 kg plastic diverted"
+    },
+    {
+      fact: "Turning off classroom computers and displays overnight can reduce campus electrical load by up to 23%.",
+      category: "Energy Conservation",
+      impact: "450 kWh saved annually"
+    },
+    {
+      fact: "Using campus duplex (double-sided) printing saves roughly 1 tree for every 16 reams of paper preserved.",
+      category: "Paperless Campus",
+      impact: "60% less paper consumed"
+    },
+    {
+      fact: "Walking or biking between campus departments instead of idling a motorized vehicle cuts direct campus emissions by 1.2 kg CO₂ weekly.",
+      category: "Green Mobility",
+      impact: "Zero transport footprint"
+    },
+    {
+      fact: "Properly segregating campus cafeteria food waste allows 100% conversion into campus botanical garden compost.",
+      category: "Circular Economy",
+      impact: "Zero landfill organics"
+    },
+    {
+      fact: "A single dripping tap in the dorm or campus lab loses up to 20 liters of clean drinking water every day.",
+      category: "Water Conservation",
+      impact: "7,300L saved per year"
+    }
+  ],
+
+  /**
+   * Fetches real-time Air Quality & Weather from Open-Meteo (No API key required)
+   */
+  async fetchCampusAirQuality() {
+    try {
+      const url = `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${this.defaultCoords.lat}&longitude=${this.defaultCoords.lon}&current=european_aqi,pm10,pm2_5,ozone&timezone=auto`;
+      
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 4000); // 4s timeout
+
+      const response = await fetch(url, { signal: controller.signal });
+      clearTimeout(timeoutId);
+
+      if (!response.ok) {
+        throw new Error('Air quality network response failed');
+      }
+
+      const data = await response.json();
+      const aqi = data.current?.european_aqi || 28;
+      const pm25 = data.current?.pm2_5 || 14.2;
+
+      return {
+        success: true,
+        aqi: Math.round(aqi),
+        pm25: pm25.toFixed(1),
+        status: this.getAqiStatus(aqi),
+        tip: this.getAqiTip(aqi),
+        source: "Open-Meteo Live API"
+      };
+    } catch (err) {
+      console.warn("Using offline simulated Campus Eco Sensor data:", err.message);
+      // Fallback with realistic campus environmental monitor
+      return {
+        success: true,
+        aqi: 32,
+        pm25: "15.4",
+        status: { label: "Good", color: "text-emerald-600", bg: "bg-emerald-50", badge: "Optimal" },
+        tip: "Air quality across campus is optimal! Perfect time to walk through the campus gardens.",
+        source: "Campus Eco Station (Simulated)"
+      };
+    }
+  },
+
+  getAqiStatus(aqi) {
+    if (aqi <= 20) return { label: "Very Good", color: "text-emerald-500", bg: "bg-emerald-50", badge: "Pristine" };
+    if (aqi <= 40) return { label: "Good", color: "text-teal-600", bg: "bg-teal-50", badge: "Optimal" };
+    if (aqi <= 60) return { label: "Moderate", color: "text-amber-500", bg: "bg-amber-50", badge: "Moderate" };
+    return { label: "Unhealthy", color: "text-red-500", bg: "bg-red-50", badge: "Take Care" };
+  },
+
+  getAqiTip(aqi) {
+    if (aqi <= 35) {
+      return "Campus air is fresh! Great day for outdoor campus walks and natural ventilation in study halls.";
+    } else if (aqi <= 60) {
+      return "Moderate campus air: Keep dorm windows ventilated during early morning hours.";
+    } else {
+      return "Elevated dust detected: Remember to use covered campus walkways today.";
+    }
+  },
+
+  /**
+   * Returns a random or rotatable sustainability tip
+   */
+  getRandomEcoFact() {
+    const randomIndex = Math.floor(Math.random() * this.ecoFacts.length);
+    return this.ecoFacts[randomIndex];
+  }
+};
+
+window.EcoAPI = EcoAPI;
+
+
+/* --- auth.js --- */
+/**
+ * Green Campus Authentication & User Record Store
+ * Manages user accounts, persistence in LocalStorage, login/signup,
+ * quiz record tracking, badges, and campus departments.
+ */
+
+const STORAGE_KEYS = {
+  USERS: 'green_campus_users_v1',
+  CURRENT_USER: 'green_campus_current_user_v1'
+};
+
+// Seed mock campus students for competitive leaderboard
+const INITIAL_CAMPUS_PEERS = [
+  {
+    id: 'STU-2026-104',
+    name: 'Aarav Sharma',
+    email: 'aarav.s@campus.edu',
+    department: 'School of Environmental Science',
+    password: 'password123',
+    avatar: '🌱',
+    stats: {
+      quizzesTaken: 4,
+      bestScore: 10,
+      bestTime: 38, // seconds
+      totalPoints: 380,
+      badges: ['First Step', 'Speed Demon', 'Green Genius', 'Sustainability Champion'],
+      history: [
+        { date: '2026-10-30 14:15', score: 10, timeSeconds: 38, formattedTime: '00:38' },
+        { date: '2026-10-28 11:20', score: 9, timeSeconds: 45, formattedTime: '00:45' }
+      ]
+    }
+  },
+  {
+    id: 'STU-2026-218',
+    name: 'Sarah Jenkins',
+    email: 'sarah.j@campus.edu',
+    department: 'School of Engineering',
+    password: 'password123',
+    avatar: '⚡',
+    stats: {
+      quizzesTaken: 3,
+      bestScore: 10,
+      bestTime: 42,
+      totalPoints: 350,
+      badges: ['First Step', 'Green Genius', 'Sustainability Champion'],
+      history: [
+        { date: '2026-10-29 16:40', score: 10, timeSeconds: 42, formattedTime: '00:42' }
+      ]
+    }
+  },
+  {
+    id: 'STU-2026-305',
+    name: 'Elena Rostova',
+    email: 'elena.r@campus.edu',
+    department: 'School of Design & Architecture',
+    password: 'password123',
+    avatar: '🌳',
+    stats: {
+      quizzesTaken: 2,
+      bestScore: 9,
+      bestTime: 49,
+      totalPoints: 260,
+      badges: ['First Step', 'Green Genius'],
+      history: [
+        { date: '2026-10-30 09:10', score: 9, timeSeconds: 49, formattedTime: '00:49' }
+      ]
+    }
+  },
+  {
+    id: 'STU-2026-442',
+    name: 'Rohan Patel',
+    email: 'rohan.p@campus.edu',
+    department: 'School of Management',
+    password: 'password123',
+    avatar: '♻️',
+    stats: {
+      quizzesTaken: 3,
+      bestScore: 9,
+      bestTime: 54,
+      totalPoints: 270,
+      badges: ['First Step', 'Green Genius'],
+      history: [
+        { date: '2026-10-31 10:20', score: 9, timeSeconds: 54, formattedTime: '00:54' }
+      ]
+    }
+  },
+  {
+    id: 'STU-2026-519',
+    name: 'Mia Wong',
+    email: 'mia.w@campus.edu',
+    department: 'School of Medicine & Health',
+    password: 'password123',
+    avatar: '💧',
+    stats: {
+      quizzesTaken: 1,
+      bestScore: 8,
+      bestTime: 62,
+      totalPoints: 180,
+      badges: ['First Step', 'Green Genius'],
+      history: [
+        { date: '2026-10-31 13:05', score: 8, timeSeconds: 62, formattedTime: '01:02' }
+      ]
+    }
+  }
+];
+
+class AuthManager {
+  constructor() {
+    this.users = this.loadUsers();
+    this.currentUser = this.loadCurrentUser();
+    this.listeners = [];
+  }
+
+  loadUsers() {
+    const raw = localStorage.getItem(STORAGE_KEYS.USERS);
+    if (!raw) {
+      localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(INITIAL_CAMPUS_PEERS));
+      return [...INITIAL_CAMPUS_PEERS];
+    }
+    try {
+      return JSON.parse(raw);
+    } catch (e) {
+      return [...INITIAL_CAMPUS_PEERS];
+    }
+  }
+
+  saveUsers() {
+    localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(this.users));
+  }
+
+  loadCurrentUser() {
+    const raw = localStorage.getItem(STORAGE_KEYS.CURRENT_USER);
+    if (!raw) return null;
+    try {
+      const parsed = JSON.parse(raw);
+      // Re-sync with users database
+      const found = this.users.find(u => u.id === parsed.id || u.email === parsed.email);
+      return found || parsed;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  setCurrentUser(user) {
+    this.currentUser = user;
+    if (user) {
+      localStorage.setItem(STORAGE_KEYS.CURRENT_USER, JSON.stringify(user));
+    } else {
+      localStorage.removeItem(STORAGE_KEYS.CURRENT_USER);
+    }
+    this.notify();
+  }
+
+  subscribe(callback) {
+    this.listeners.push(callback);
+    callback(this.currentUser);
+  }
+
+  notify() {
+    this.listeners.forEach(cb => cb(this.currentUser));
+  }
+
+  /**
+   * Register a new student
+   */
+  register({ name, email, department, studentId, password, avatar }) {
+    // Validate email format and student id
+    if (!name || !email || !password) {
+      return { success: false, message: 'Please fill in all required fields.' };
+    }
+
+    const emailTrimmed = email.trim().toLowerCase();
+    const existing = this.users.find(u => u.email.toLowerCase() === emailTrimmed);
+    if (existing) {
+      return { success: false, message: 'A student account with this email already exists. Please log in.' };
+    }
+
+    const genStudentId = studentId && studentId.trim() ? studentId.trim() : `STU-${new Date().getFullYear()}-${Math.floor(100 + Math.random() * 900)}`;
+
+    const newUser = {
+      id: genStudentId,
+      name: name.trim(),
+      email: emailTrimmed,
+      department: department || 'General Campus Studies',
+      password: password,
+      avatar: avatar || '🌱',
+      createdAt: new Date().toISOString(),
+      stats: {
+        quizzesTaken: 0,
+        bestScore: 0,
+        bestTime: 9999,
+        totalPoints: 0,
+        badges: [],
+        history: []
+      }
+    };
+
+    this.users.unshift(newUser);
+    this.saveUsers();
+    this.setCurrentUser(newUser);
+
+    return { success: true, user: newUser };
+  }
+
+  /**
+   * Login student
+   */
+  login(identifier, password) {
+    if (!identifier || !password) {
+      return { success: false, message: 'Please enter your email or Student ID and password.' };
+    }
+
+    const idTrimmed = identifier.trim().toLowerCase();
+    const user = this.users.find(u => 
+      u.email.toLowerCase() === idTrimmed || 
+      (u.id && u.id.toLowerCase() === idTrimmed)
+    );
+
+    if (!user) {
+      return { success: false, message: 'No student record found with this ID or Email.' };
+    }
+
+    if (user.password !== password) {
+      return { success: false, message: 'Incorrect password. Try again or use a demo account.' };
+    }
+
+    this.setCurrentUser(user);
+    return { success: true, user };
+  }
+
+  /**
+   * Quick Demo Login
+   */
+  loginDemo(index = 0) {
+    const demoUser = this.users[index] || this.users[0];
+    if (demoUser) {
+      this.setCurrentUser(demoUser);
+      return { success: true, user: demoUser };
+    }
+    return { success: false, message: 'No demo account available' };
+  }
+
+  /**
+   * Guest Login
+   */
+  loginAsGuest() {
+    const guestUser = {
+      id: `GUEST-${Math.floor(1000 + Math.random() * 9000)}`,
+      name: 'Campus Guest Explorer',
+      email: 'guest@greencampus.edu',
+      department: 'Open Campus Visitor',
+      password: '',
+      avatar: '🌍',
+      isGuest: true,
+      stats: {
+        quizzesTaken: 0,
+        bestScore: 0,
+        bestTime: 9999,
+        totalPoints: 0,
+        badges: [],
+        history: []
+      }
+    };
+    this.users.unshift(guestUser);
+    this.saveUsers();
+    this.setCurrentUser(guestUser);
+    return { success: true, user: guestUser };
+  }
+
+  logout() {
+    this.setCurrentUser(null);
+  }
+
+  /**
+   * Record a completed quiz attempt for current user
+   */
+  recordQuizAttempt({ score, totalQuestions, timeSeconds }) {
+    if (!this.currentUser) return null;
+
+    const user = this.users.find(u => u.id === this.currentUser.id);
+    if (!user) return null;
+
+    if (!user.stats) {
+      user.stats = {
+        quizzesTaken: 0,
+        bestScore: 0,
+        bestTime: 9999,
+        totalPoints: 0,
+        badges: [],
+        history: []
+      };
+    }
+
+    const formattedTime = this.formatTime(timeSeconds);
+    const dateStr = new Date().toISOString().replace('T', ' ').substring(0, 16);
+
+    user.stats.quizzesTaken += 1;
+    user.stats.totalPoints += (score * 10) + Math.max(0, 50 - Math.floor(timeSeconds / 2));
+
+    // Update best score and tie-breaker best time
+    if (score > user.stats.bestScore) {
+      user.stats.bestScore = score;
+      user.stats.bestTime = timeSeconds;
+    } else if (score === user.stats.bestScore) {
+      if (timeSeconds < user.stats.bestTime) {
+        user.stats.bestTime = timeSeconds;
+      }
+    }
+
+    // Save history item
+    user.stats.history.unshift({
+      date: dateStr,
+      score,
+      totalQuestions: totalQuestions || 10,
+      timeSeconds,
+      formattedTime
+    });
+
+    // Award badges
+    const badges = user.stats.badges || [];
+    if (!badges.includes('First Step')) badges.push('First Step');
+    if (score >= 8 && !badges.includes('Green Genius')) badges.push('Green Genius');
+    if (score === 10 && !badges.includes('Sustainability Champion')) badges.push('Sustainability Champion');
+    if (timeSeconds <= 45 && !badges.includes('Speed Demon')) badges.push('Speed Demon');
+    if (user.stats.quizzesTaken >= 3 && !badges.includes('Eco Warrior')) badges.push('Eco Warrior');
+    user.stats.badges = badges;
+
+    // Save back
+    this.saveUsers();
+    this.setCurrentUser(user);
+
+    return {
+      user,
+      newBadges: badges,
+      formattedTime,
+      date: dateStr
+    };
+  }
+
+  formatTime(seconds) {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  }
+
+  getAllUsers() {
+    return [...this.users];
+  }
+}
+
+window.authManager = new AuthManager();
+
+
+/* --- quiz.js --- */
+/**
+ * Green Campus Quiz Engine
+ * Built according to Slide 3 & Slide 4:
+ * 10 questions on recycling, waste, energy & climate.
+ * Instant feedback, audio effects, timer & fair scoring.
+ */
+
+class SoundEffects {
+  constructor() {
+    this.ctx = null;
+    this.muted = localStorage.getItem('green_campus_muted') === 'true';
+  }
+
+  init() {
+    if (!this.ctx && (window.AudioContext || window.webkitAudioContext)) {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      this.ctx = new AudioCtx();
+    }
+    if (this.ctx && this.ctx.state === 'suspended') {
+      this.ctx.resume();
+    }
+  }
+
+  playTone(freq, type = 'sine', duration = 0.15, gain = 0.1) {
+    if (this.muted) return;
+    try {
+      this.init();
+      if (!this.ctx) return;
+      const osc = this.ctx.createOscillator();
+      const gainNode = this.ctx.createGain();
+
+      osc.type = type;
+      osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+
+      gainNode.gain.setValueAtTime(gain, this.ctx.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + duration);
+
+      osc.connect(gainNode);
+      gainNode.connect(this.ctx.destination);
+
+      osc.start();
+      osc.stop(this.ctx.currentTime + duration);
+    } catch (e) {
+      // Audio might be blocked by browser policy until interaction
+    }
+  }
+
+  playCorrect() {
+    if (this.muted) return;
+    this.init();
+    setTimeout(() => this.playTone(523.25, 'triangle', 0.1, 0.12), 0);    // C5
+    setTimeout(() => this.playTone(659.25, 'triangle', 0.12, 0.12), 80);  // E5
+    setTimeout(() => this.playTone(783.99, 'triangle', 0.25, 0.15), 160); // G5
+  }
+
+  playWrong() {
+    if (this.muted) return;
+    this.init();
+    setTimeout(() => this.playTone(280, 'sawtooth', 0.15, 0.12), 0);
+    setTimeout(() => this.playTone(220, 'sawtooth', 0.25, 0.12), 100);
+  }
+
+  playClick() {
+    this.playTone(800, 'sine', 0.05, 0.05);
+  }
+
+  playFanfare() {
+    if (this.muted) return;
+    this.init();
+    const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+    notes.forEach((freq, idx) => {
+      setTimeout(() => this.playTone(freq, 'triangle', 0.35, 0.2), idx * 120);
+    });
+  }
+
+  toggleMute() {
+    this.muted = !this.muted;
+    localStorage.setItem('green_campus_muted', this.muted);
+    return this.muted;
+  }
+}
+
+// 10 Campus Sustainability Questions matching Slide 2 & 3
+const QUIZ_QUESTIONS = [
+  {
+    id: 1,
+    category: "Waste & Recycling",
+    badgeColor: "bg-sky-500",
+    question: "Which action reduces waste on campus?", // Exact question from Slide 3
+    options: [
+      { id: "A", text: "Carry a reusable bottle", isCorrect: true },
+      { id: "B", text: "Use extra plastic cups", isCorrect: false },
+      { id: "C", text: "Print every notice", isCorrect: false },
+      { id: "D", text: "Leave lights on", isCorrect: false }
+    ],
+    explanation: "Carrying a reusable bottle eliminates single-use cups and bottles, preventing hundreds of plastic items from reaching landfills each semester."
+  },
+  {
+    id: 2,
+    category: "Energy Conservation",
+    badgeColor: "bg-amber-500",
+    question: "What is 'Phantom Load' (vampire power) in campus dorms and computer labs?",
+    options: [
+      { id: "A", text: "Power consumed by campus Halloween lights", isCorrect: false },
+      { id: "B", text: "Electricity drawn by electronic devices while plugged in on standby", isCorrect: true },
+      { id: "C", text: "Power surges caused by campus lightning", isCorrect: false },
+      { id: "D", text: "Energy saved by solar roof panels", isCorrect: false }
+    ],
+    explanation: "Devices on standby (monitors, chargers, microwaves) continuously drain phantom power—accounting for up to 10% of campus residential electricity!"
+  },
+  {
+    id: 3,
+    category: "Circular Economy",
+    badgeColor: "bg-emerald-500",
+    question: "Which item should strictly go into the campus green organic compost bin?",
+    options: [
+      { id: "A", text: "Styrofoam food takeaway box", isCorrect: false },
+      { id: "B", text: "Fruit peel and leftover cafeteria salad", isCorrect: true },
+      { id: "C", text: "Aluminium soda can", isCorrect: false },
+      { id: "D", text: "Plastic cutlery wrapper", isCorrect: false }
+    ],
+    explanation: "Organic food scraps and fruit peels turn into nutrient-dense compost for campus botanical gardens, cutting methane from landfill decomposition."
+  },
+  {
+    id: 4,
+    category: "Green Mobility",
+    badgeColor: "bg-indigo-500",
+    question: "What is the greenest way to travel between campus lecture halls?",
+    options: [
+      { id: "A", text: "Walking or using the campus bicycle-sharing fleet", isCorrect: true },
+      { id: "B", text: "Idling a motorbike between 5-minute stops", isCorrect: false },
+      { id: "C", text: "Calling a single-occupancy cab across campus", isCorrect: false },
+      { id: "D", text: "Driving an SUV through the pedestrian avenue", isCorrect: false }
+    ],
+    explanation: "Walking and campus cycling produce 0 grams of tailpipe emissions and keep campus air clean, healthy, and pedestrian-friendly."
+  },
+  {
+    id: 5,
+    category: "Paperless Campus",
+    badgeColor: "bg-teal-500",
+    question: "How does adopting digital LMS submissions and duplex printing benefit the campus ecosystem?",
+    options: [
+      { id: "A", text: "It doubles paper consumption", isCorrect: false },
+      { id: "B", text: "Saves trees, water, and reduces campus physical storage footprint", isCorrect: true },
+      { id: "C", text: "Slows down professor grading", isCorrect: false },
+      { id: "D", text: "Requires more filing cabinets", isCorrect: false }
+    ],
+    explanation: "Producing 1 ream of standard virgin paper takes roughly 47 liters of water. Digital assignments save thousands of liters across campus departments."
+  },
+  {
+    id: 6,
+    category: "Water Stewardship",
+    badgeColor: "bg-blue-600",
+    question: "A single dripping faucet in a campus restroom or laboratory wastes approximately how much water daily?",
+    options: [
+      { id: "A", text: "Less than 100 milliliters", isCorrect: false },
+      { id: "B", text: "Up to 20 liters or more of treated drinking water", isCorrect: true },
+      { id: "C", text: "Only 1 drop per day", isCorrect: false },
+      { id: "D", text: "Zero water if the door is closed", isCorrect: false }
+    ],
+    explanation: "A standard slow drip wastes about 20 liters each day. Reporting leaks quickly to campus facilities saves thousands of liters annually."
+  },
+  {
+    id: 7,
+    category: "Climate Action",
+    badgeColor: "bg-rose-500",
+    question: "Setting campus classroom AC thermostats to 24°C (75°F) instead of 18°C achieves what result?",
+    options: [
+      { id: "A", text: "Reduces campus chiller electricity use by roughly 18-24%", isCorrect: true },
+      { id: "B", text: "Causes the AC to break immediately", isCorrect: false },
+      { id: "C", text: "Triples the campus electricity bill", isCorrect: false },
+      { id: "D", text: "Produces more humidity indoors", isCorrect: false }
+    ],
+    explanation: "Every 1°C increase in AC setpoint saves ~6% energy. A comfortable 24°C prevents thermal shock and drastically cuts campus peak load."
+  },
+  {
+    id: 8,
+    category: "E-Waste Management",
+    badgeColor: "bg-purple-600",
+    question: "Where should spent lithium batteries and broken campus electronics be discarded?",
+    options: [
+      { id: "A", text: "Regular roadside trash bin", isCorrect: false },
+      { id: "B", text: "Dedicated Campus E-Waste collection kiosk for certified recycling", isCorrect: true },
+      { id: "C", text: "Buried in the campus lawn", isCorrect: false },
+      { id: "D", text: "Burned in the incinerator", isCorrect: false }
+    ],
+    explanation: "E-waste contains hazardous heavy metals like lead and cadmium. Certified campus e-waste kiosks safely recover rare elements like gold and copper."
+  },
+  {
+    id: 9,
+    category: "Sustainable Dining",
+    badgeColor: "bg-lime-600",
+    question: "Which campus cafeteria habit creates the highest positive environmental ripple effect?",
+    options: [
+      { id: "A", text: "Participating in 'Meatless Mondays' and taking only portions you can finish", isCorrect: true },
+      { id: "B", text: "Leaving half-eaten plates on table trays", isCorrect: false },
+      { id: "C", text: "Demanding 3 sets of disposable forks", isCorrect: false },
+      { id: "D", text: "Throwing sealed food packets into trash", isCorrect: false }
+    ],
+    explanation: "Food waste decomposing in landfills generates potent methane gas. Finishing portions and eating plant-rich campus meals substantially lowers food miles."
+  },
+  {
+    id: 10,
+    category: "Campus Culture (Team Particles)",
+    badgeColor: "bg-emerald-600",
+    question: "What is the core mission of the Green Campus Quiz designed by Team Particles?",
+    options: [
+      { id: "A", text: "To memorize boring chemistry equations", isCorrect: false },
+      { id: "B", text: "Turn environmental awareness into an interactive, rewarding campus habit", isCorrect: true },
+      { id: "C", text: "To eliminate all exams from campus", isCorrect: false },
+      { id: "D", text: "To ban all students from drinking coffee", isCorrect: false }
+    ],
+    explanation: "As stated in Slide 1 & 5: 'Turning environmental awareness into an interactive campus habit. PLAY -> LEARN -> COMPETE -> ACT!'"
+  }
+];
+
+class QuizEngine {
+  constructor() {
+    this.questions = QUIZ_QUESTIONS;
+    this.currentIndex = 0;
+    this.score = 0;
+    this.userAnswers = [];
+    this.startTime = null;
+    this.timerInterval = null;
+    this.questionCountdown = 20; // 20s per question matching Slide 3
+    this.questionTimerInterval = null;
+    this.elapsedSeconds = 0;
+    this.isAnswered = false;
+    this.sound = new SoundEffects();
+    this.onQuestionChange = null;
+    this.onQuizComplete = null;
+  }
+
+  startQuiz() {
+    this.currentIndex = 0;
+    this.score = 0;
+    this.userAnswers = [];
+    this.elapsedSeconds = 0;
+    this.isAnswered = false;
+    this.startTime = Date.now();
+
+    // Start overall timer
+    clearInterval(this.timerInterval);
+    this.timerInterval = setInterval(() => {
+      this.elapsedSeconds = Math.floor((Date.now() - this.startTime) / 1000);
+      const timerEl = document.getElementById('quiz-overall-timer');
+      if (timerEl) {
+        timerEl.textContent = this.formatTime(this.elapsedSeconds);
+      }
+    }, 1000);
+
+    this.loadQuestion();
+  }
+
+  loadQuestion() {
+    this.isAnswered = false;
+    this.questionCountdown = 20;
+    this.startQuestionCountdown();
+
+    if (this.onQuestionChange) {
+      this.onQuestionChange(this.getCurrentQuestion(), this.currentIndex, this.questions.length);
+    }
+  }
+
+  startQuestionCountdown() {
+    clearInterval(this.questionTimerInterval);
+    const countEl = document.getElementById('question-countdown-display');
+    const barEl = document.getElementById('question-countdown-bar');
+
+    if (countEl) countEl.textContent = `${this.questionCountdown}s`;
+    if (barEl) barEl.style.width = '100%';
+
+    this.questionTimerInterval = setInterval(() => {
+      this.questionCountdown--;
+      if (countEl) countEl.textContent = `${this.questionCountdown}s`;
+      if (barEl) {
+        const percentage = (this.questionCountdown / 20) * 100;
+        barEl.style.width = `${Math.max(0, percentage)}%`;
+      }
+
+      if (this.questionCountdown <= 0) {
+        clearInterval(this.questionTimerInterval);
+        if (!this.isAnswered) {
+          // Time expired for this question
+          this.handleTimeout();
+        }
+      }
+    }, 1000);
+  }
+
+  handleTimeout() {
+    if (this.isAnswered) return;
+    this.isAnswered = true;
+    this.sound.playWrong();
+
+    const q = this.getCurrentQuestion();
+    this.userAnswers.push({
+      questionId: q.id,
+      selectedOption: null,
+      isCorrect: false,
+      timeExpired: true
+    });
+
+    // Reveal correct option
+    if (this.onQuestionTimeout) {
+      this.onQuestionTimeout(q);
+    }
+  }
+
+  getCurrentQuestion() {
+    return this.questions[this.currentIndex];
+  }
+
+  submitAnswer(optionId) {
+    if (this.isAnswered) return;
+    this.isAnswered = true;
+    clearInterval(this.questionTimerInterval);
+
+    const q = this.getCurrentQuestion();
+    const selected = q.options.find(o => o.id === optionId);
+    const isCorrect = !!(selected && selected.isCorrect);
+
+    if (isCorrect) {
+      this.score++;
+      this.sound.playCorrect();
+    } else {
+      this.sound.playWrong();
+    }
+
+    this.userAnswers.push({
+      questionId: q.id,
+      selectedOption: optionId,
+      isCorrect: isCorrect,
+      timeRemaining: this.questionCountdown
+    });
+
+    return {
+      isCorrect,
+      correctOptionId: q.options.find(o => o.isCorrect)?.id,
+      explanation: q.explanation
+    };
+  }
+
+  nextQuestion() {
+    if (this.currentIndex < this.questions.length - 1) {
+      this.currentIndex++;
+      this.loadQuestion();
+      return true;
+    } else {
+      this.finishQuiz();
+      return false;
+    }
+  }
+
+  finishQuiz() {
+    clearInterval(this.timerInterval);
+    clearInterval(this.questionTimerInterval);
+    this.elapsedSeconds = Math.max(1, Math.floor((Date.now() - this.startTime) / 1000));
+
+    this.sound.playFanfare();
+
+    // Trigger celebration confetti
+    if (window.confetti) {
+      window.confetti({
+        particleCount: 120,
+        spread: 80,
+        origin: { y: 0.6 }
+      });
+    }
+
+    // Save record to Auth Store
+    const result = window.authManager.recordQuizAttempt({
+      score: this.score,
+      totalQuestions: this.questions.length,
+      timeSeconds: this.elapsedSeconds
+    });
+
+    if (this.onQuizComplete) {
+      this.onQuizComplete({
+        score: this.score,
+        totalQuestions: this.questions.length,
+        timeSeconds: this.elapsedSeconds,
+        formattedTime: this.formatTime(this.elapsedSeconds),
+        userAnswers: this.userAnswers,
+        recordResult: result
+      });
+    }
+  }
+
+  formatTime(seconds) {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  }
+}
+
+window.QuizEngine = QuizEngine;
+window.quizSound = new SoundEffects();
+
+
+/* --- leaderboard.js --- */
+/**
+ * Green Campus Leaderboard Service
+ * Implements Slide 2 strict rule:
+ * "Highest correct score first; if tied, the faster completion time ranks higher."
+ */
+
+class LeaderboardManager {
+  constructor(authManager) {
+    this.auth = authManager;
+    this.currentFilter = 'ALL';
+    this.searchQuery = '';
+  }
+
+  /**
+   * Sorts players by Slide 2 Leaderboard rule:
+   * 1. Primary: Highest score (descending)
+   * 2. Secondary (Tie-breaker): Fastest completion time in seconds (ascending)
+   */
+  getRankedUsers(department = 'ALL') {
+    const allUsers = this.auth.getAllUsers();
+
+    // Filter out users who haven't taken any quiz yet
+    let activeParticipants = allUsers.filter(u => u.stats && u.stats.quizzesTaken > 0);
+
+    // Apply department filter
+    if (department && department !== 'ALL') {
+      activeParticipants = activeParticipants.filter(u => u.department === department);
+    }
+
+    // Apply name/ID search filter if present
+    if (this.searchQuery && this.searchQuery.trim()) {
+      const q = this.searchQuery.toLowerCase().trim();
+      activeParticipants = activeParticipants.filter(u => 
+        u.name.toLowerCase().includes(q) || 
+        (u.id && u.id.toLowerCase().includes(q))
+      );
+    }
+
+    // Sort according to Slide 2 rule
+    activeParticipants.sort((a, b) => {
+      const scoreA = a.stats.bestScore || 0;
+      const scoreB = b.stats.bestScore || 0;
+
+      if (scoreB !== scoreA) {
+        return scoreB - scoreA; // Highest score first
+      }
+
+      // Tie breaker: faster time ranks higher
+      const timeA = a.stats.bestTime || 9999;
+      const timeB = b.stats.bestTime || 9999;
+      return timeA - timeB;
+    });
+
+    return activeParticipants;
+  }
+
+  getCurrentUserRank() {
+    const currentUser = this.auth.currentUser;
+    if (!currentUser || !currentUser.stats || currentUser.stats.quizzesTaken === 0) {
+      return null;
+    }
+
+    const ranked = this.getRankedUsers('ALL');
+    const index = ranked.findIndex(u => u.id === currentUser.id);
+    return index !== -1 ? index + 1 : null;
+  }
+
+  renderLeaderboard(containerId, podiumContainerId, department = 'ALL') {
+    const container = document.getElementById(containerId);
+    const podiumContainer = document.getElementById(podiumContainerId);
+    if (!container) return;
+
+    const ranked = this.getRankedUsers(department);
+    const currentUserId = this.auth.currentUser ? this.auth.currentUser.id : null;
+
+    // Render Podium (Top 3)
+    if (podiumContainer) {
+      if (ranked.length < 1) {
+        podiumContainer.innerHTML = `
+          <div class="col-span-3 text-center py-8 text-gray-500">
+            No quiz records yet in this category. Be the first to play!
+          </div>
+        `;
+      } else {
+        const first = ranked[0];
+        const second = ranked[1];
+        const third = ranked[2];
+
+        podiumContainer.innerHTML = `
+          <!-- 2nd Place -->
+          ${second ? `
+            <div class="flex flex-col items-center order-2 sm:order-1 pt-6">
+              <div class="relative">
+                <div class="w-16 h-16 rounded-full bg-slate-100 border-4 border-slate-300 flex items-center justify-center text-3xl shadow-md">
+                  ${second.avatar || '⚡'}
+                </div>
+                <span class="absolute -bottom-2.5 left-1/2 -translate-x-1/2 bg-slate-300 text-slate-800 text-xs font-bold px-2 py-0.5 rounded-full shadow">#2</span>
+              </div>
+              <h4 class="font-bold text-slate-800 text-sm sm:text-base mt-4 text-center truncate max-w-[120px]">${second.name}</h4>
+              <p class="text-xs text-slate-500 truncate max-w-[120px]">${second.department.replace('School of ', '')}</p>
+              <div class="mt-2 text-xs font-semibold px-2.5 py-1 bg-slate-100 rounded-full text-slate-700">
+                ${second.stats.bestScore}/10 • ${this.auth.formatTime(second.stats.bestTime)}
+              </div>
+            </div>
+          ` : '<div class="hidden sm:block order-1"></div>'}
+
+          <!-- 1st Place (Winner) -->
+          ${first ? `
+            <div class="flex flex-col items-center order-1 sm:order-2">
+              <div class="relative animate-bounce" style="animation-duration: 3s;">
+                <div class="absolute -top-6 left-1/2 -translate-x-1/2 text-2xl">👑</div>
+                <div class="w-20 h-20 rounded-full bg-amber-50 border-4 border-amber-400 flex items-center justify-center text-4xl shadow-xl ring-4 ring-amber-100">
+                  ${first.avatar || '🌱'}
+                </div>
+                <span class="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-amber-400 text-amber-950 text-xs font-black px-3 py-0.5 rounded-full shadow-md">#1 CAMPUS</span>
+              </div>
+              <h4 class="font-extrabold text-slate-900 text-base sm:text-lg mt-5 text-center truncate max-w-[140px]">${first.name}</h4>
+              <p class="text-xs text-emerald-700 font-medium truncate max-w-[140px]">${first.department.replace('School of ', '')}</p>
+              <div class="mt-2 text-xs font-bold px-3 py-1.5 bg-amber-100 text-amber-900 rounded-full shadow-sm">
+                ${first.stats.bestScore}/10 • ⚡ ${this.auth.formatTime(first.stats.bestTime)}
+              </div>
+            </div>
+          ` : ''}
+
+          <!-- 3rd Place -->
+          ${third ? `
+            <div class="flex flex-col items-center order-3 pt-8">
+              <div class="relative">
+                <div class="w-14 h-14 rounded-full bg-amber-50 border-4 border-amber-600/40 flex items-center justify-center text-2xl shadow-md">
+                  ${third.avatar || '🌳'}
+                </div>
+                <span class="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-amber-600/60 text-white text-xs font-bold px-2 py-0.5 rounded-full shadow">#3</span>
+              </div>
+              <h4 class="font-bold text-slate-800 text-sm mt-3 text-center truncate max-w-[120px]">${third.name}</h4>
+              <p class="text-xs text-slate-500 truncate max-w-[120px]">${third.department.replace('School of ', '')}</p>
+              <div class="mt-2 text-xs font-semibold px-2 py-1 bg-amber-50 rounded-full text-amber-900">
+                ${third.stats.bestScore}/10 • ${this.auth.formatTime(third.stats.bestTime)}
+              </div>
+            </div>
+          ` : '<div class="hidden sm:block order-3"></div>'}
+        `;
+      }
+    }
+
+    // Render Full List
+    if (ranked.length === 0) {
+      container.innerHTML = `
+        <div class="p-8 text-center text-gray-400">
+          <i class="fa-solid fa-seedling text-3xl text-emerald-400 mb-2"></i>
+          <p>No recorded quiz scores yet. Start the quiz and claim #1 on campus!</p>
+        </div>
+      `;
+      return;
+    }
+
+    const html = ranked.map((user, idx) => {
+      const isMe = user.id === currentUserId;
+      const rankNum = idx + 1;
+      let rankBadge = `<span class="font-bold text-slate-500 text-sm">#${rankNum}</span>`;
+
+      if (rankNum === 1) rankBadge = `<span class="w-7 h-7 rounded-full bg-amber-400 text-amber-950 flex items-center justify-center font-bold text-xs shadow-sm">🥇</span>`;
+      else if (rankNum === 2) rankBadge = `<span class="w-7 h-7 rounded-full bg-slate-300 text-slate-800 flex items-center justify-center font-bold text-xs shadow-sm">🥈</span>`;
+      else if (rankNum === 3) rankBadge = `<span class="w-7 h-7 rounded-full bg-amber-600/40 text-amber-900 flex items-center justify-center font-bold text-xs shadow-sm">🥉</span>`;
+
+      return `
+        <div class="flex items-center justify-between p-3.5 sm:p-4 rounded-xl transition duration-200 ${isMe ? 'bg-emerald-50/90 border-2 border-emerald-500/50 shadow-sm' : 'hover:bg-slate-50 border border-slate-100'}">
+          <div class="flex items-center gap-3 min-w-0">
+            <div class="flex-shrink-0 w-8 flex justify-center">
+              ${rankBadge}
+            </div>
+            <div class="w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center text-xl shadow-xs flex-shrink-0">
+              ${user.avatar || '🌱'}
+            </div>
+            <div class="min-w-0">
+              <div class="flex items-center gap-2">
+                <p class="font-bold text-slate-900 text-sm sm:text-base truncate ${isMe ? 'text-emerald-900' : ''}">
+                  ${user.name}
+                </p>
+                ${isMe ? '<span class="bg-emerald-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded uppercase tracking-wider">YOU</span>' : ''}
+              </div>
+              <p class="text-xs text-slate-500 truncate">
+                ${user.department} • <span class="text-slate-400">${user.id}</span>
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3 sm:gap-6 flex-shrink-0 text-right">
+            <div>
+              <div class="text-sm sm:text-base font-extrabold text-slate-900">
+                ${user.stats.bestScore}<span class="text-xs text-slate-400 font-normal">/10</span>
+              </div>
+              <div class="text-[11px] text-slate-500 flex items-center justify-end gap-1">
+                <i class="fa-regular fa-clock text-[10px]"></i>
+                ${this.auth.formatTime(user.stats.bestTime)}
+              </div>
+            </div>
+            <div class="hidden md:block">
+              <div class="text-xs font-semibold px-2.5 py-1 bg-emerald-100 text-emerald-800 rounded-full">
+                ${user.stats.totalPoints || 0} pts
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    container.innerHTML = html;
+  }
+}
+
+window.LeaderboardManager = LeaderboardManager;
+
+
+/* --- rewards.js --- */
+/**
+ * Green Campus Rewards & Vouchers System
+ * Built according to Slide 2 ("Top performers receive useful vouchers")
+ * and Slide 3 ("Voucher / stationery").
+ * Generates interactive vouchers, QR codes, and downloadable certificates.
+ */
+
+const CAMPUS_REWARDS = [
+  {
+    id: 'reward-cafe',
+    title: '50% Off Campus Eco Cafe',
+    category: 'Voucher',
+    minScore: 6,
+    icon: '☕',
+    description: 'Get 50% discount on any fairtrade coffee, matcha latte, or organic herbal tea at the Campus Central Cafe.',
+    validity: 'Valid for 14 days',
+    sponsor: 'Green Cafe & Dining Services',
+    redeemLocation: 'Student Union, Ground Floor Green Cafe'
+  },
+  {
+    id: 'reward-stationery',
+    title: 'Recycled Stationery Kit',
+    category: 'Stationery',
+    minScore: 8,
+    icon: '✏️',
+    description: 'Collect a premium Bamboo Eco Pen & Seed-paper plantable notebook at the Innovation & Design Thinking Lab.',
+    validity: 'Valid this semester',
+    sponsor: 'Innovation & Design Thinking Lab',
+    redeemLocation: 'Tech Tower, 3rd Floor, Lab 304'
+  },
+  {
+    id: 'reward-flask',
+    title: 'Reusable Thermal Flask',
+    category: 'Campus Merch',
+    minScore: 9,
+    icon: '🍶',
+    description: 'Official Team Particles Insulated Stainless Steel Water Bottle with campus refill barcode tracker.',
+    validity: 'Available while stock lasts',
+    sponsor: 'Campus Sustainability Office',
+    redeemLocation: 'Administration Block, Room 102'
+  },
+  {
+    id: 'reward-champion',
+    title: 'Champion Lunch Pass & Certificate',
+    category: 'Grand Recognition',
+    minScore: 10,
+    icon: '🏆',
+    description: 'Complimentary Farm-to-Table organic lunch pass at the Executive Campus Dining + Official Green Champion Certificate.',
+    validity: 'Valid for 30 days',
+    sponsor: 'Team Particles & Innovation Lab',
+    redeemLocation: 'Main Campus Dining Executive Hall'
+  }
+];
+
+class RewardsManager {
+  constructor(authManager) {
+    this.auth = authManager;
+    this.rewards = CAMPUS_REWARDS;
+  }
+
+  getAvailableRewardsForUser() {
+    const user = this.auth.currentUser;
+    const bestScore = user?.stats?.bestScore || 0;
+
+    return this.rewards.map(r => ({
+      ...r,
+      isUnlocked: bestScore >= r.minScore,
+      pointsNeeded: Math.max(0, r.minScore - bestScore)
+    }));
+  }
+
+  generateVoucherCode(rewardId) {
+    const user = this.auth.currentUser;
+    const prefix = rewardId.toUpperCase().replace('REWARD-', '');
+    const userPart = user ? user.id.replace('STU-', '').replace('GUEST-', '') : 'CAMPUS';
+    const randomHex = Math.floor(1000 + Math.random() * 9000).toString(16).toUpperCase();
+    return `GCQ-${prefix}-${userPart}-${randomHex}`;
+  }
+
+  renderRewardsGrid(containerId) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    const user = this.auth.currentUser;
+    const bestScore = user?.stats?.bestScore || 0;
+    const rewards = this.getAvailableRewardsForUser();
+
+    container.innerHTML = rewards.map(r => {
+      const unlocked = r.isUnlocked;
+
+      return `
+        <div class="voucher-ticket p-6 flex flex-col justify-between ${unlocked ? 'border-emerald-500 bg-white shadow-sm' : 'border-slate-300 bg-slate-50/70 opacity-75'}">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="w-12 h-12 rounded-2xl ${unlocked ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-200 text-slate-500'} flex items-center justify-center text-2xl shadow-xs">
+                ${r.icon}
+              </span>
+              <span class="text-xs font-bold px-3 py-1 rounded-full ${unlocked ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-200 text-slate-600'}">
+                ${unlocked ? '✓ UNLOCKED' : `Score ${r.minScore}+ to Unlock`}
+              </span>
+            </div>
+
+            <div class="text-[11px] font-bold uppercase tracking-wider text-emerald-700 mb-1">
+              ${r.category}
+            </div>
+            <h3 class="font-bold text-slate-900 text-lg mb-2 leading-snug">
+              ${r.title}
+            </h3>
+            <p class="text-slate-600 text-xs sm:text-sm leading-relaxed mb-4">
+              ${r.description}
+            </p>
+          </div>
+
+          <div class="pt-4 border-t border-dashed ${unlocked ? 'border-emerald-200' : 'border-slate-300'}">
+            <div class="flex items-center justify-between text-xs text-slate-500 mb-4">
+              <span><i class="fa-regular fa-clock mr-1"></i> ${r.validity}</span>
+              <span class="font-medium text-slate-700">${r.sponsor}</span>
+            </div>
+
+            ${unlocked ? `
+              <button onclick="window.rewardsManager.openClaimModal('${r.id}')" 
+                class="w-full py-2.5 px-4 rounded-xl font-bold text-sm bg-emerald-600 hover:bg-emerald-700 text-white shadow-md hover:shadow-lg transition flex items-center justify-center gap-2 btn-press">
+                <i class="fa-solid fa-gift"></i>
+                Claim / View Voucher Pass
+              </button>
+            ` : `
+              <div class="w-full py-2 px-4 rounded-xl font-semibold text-xs bg-slate-200 text-slate-600 text-center flex items-center justify-center gap-2">
+                <i class="fa-solid fa-lock text-slate-400"></i>
+                ${r.pointsNeeded} more correct answers needed
+              </div>
+            `}
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  openClaimModal(rewardId) {
+    const reward = this.rewards.find(r => r.id === rewardId);
+    if (!reward) return;
+
+    const user = this.auth.currentUser || { name: 'Student Leader', id: 'CAMPUS-2026', department: 'General Campus' };
+    const code = this.generateVoucherCode(rewardId);
+
+    const modal = document.getElementById('voucher-claim-modal');
+    if (!modal) return;
+
+    document.getElementById('modal-voucher-title').textContent = reward.title;
+    document.getElementById('modal-voucher-icon').textContent = reward.icon;
+    document.getElementById('modal-voucher-sponsor').textContent = reward.sponsor;
+    document.getElementById('modal-voucher-location').textContent = reward.redeemLocation;
+    document.getElementById('modal-voucher-code').textContent = code;
+    document.getElementById('modal-voucher-holder').textContent = `${user.name} (${user.id})`;
+
+    // Generate canvas QR code
+    this.drawQRCanvas('voucher-qr-canvas', code);
+
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+  }
+
+  closeClaimModal() {
+    const modal = document.getElementById('voucher-claim-modal');
+    if (modal) {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+  }
+
+  /**
+   * Draws a simulated scannable QR Code pattern on an HTML5 canvas
+   */
+  drawQRCanvas(canvasId, text) {
+    const canvas = document.getElementById(canvasId);
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const size = 160;
+    canvas.width = size;
+    canvas.height = size;
+
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, size, size);
+
+    // Draw stylized QR module matrix
+    const moduleCount = 21;
+    const moduleSize = Math.floor(size / moduleCount);
+    const offset = Math.floor((size - moduleCount * moduleSize) / 2);
+
+    ctx.fillStyle = '#064e3b'; // Forest green
+
+    // Deterministic pseudo-random seed from string
+    let seed = 0;
+    for (let i = 0; i < text.length; i++) {
+      seed = (seed * 31 + text.charCodeAt(i)) & 0xffffffff;
+    }
+    const pseudoRandom = () => {
+      seed = (seed * 16807) % 2147483647;
+      return (seed - 1) / 2147483646;
+    };
+
+    // Helper to draw QR corner target
+    const drawTarget = (x, y) => {
+      ctx.fillRect(offset + x * moduleSize, offset + y * moduleSize, 7 * moduleSize, 7 * moduleSize);
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(offset + (x + 1) * moduleSize, offset + (y + 1) * moduleSize, 5 * moduleSize, 5 * moduleSize);
+      ctx.fillStyle = '#064e3b';
+      ctx.fillRect(offset + (x + 2) * moduleSize, offset + (y + 2) * moduleSize, 3 * moduleSize, 3 * moduleSize);
+    };
+
+    drawTarget(0, 0);
+    drawTarget(moduleCount - 7, 0);
+    drawTarget(0, moduleCount - 7);
+
+    // Fill inner data modules
+    for (let row = 0; row < moduleCount; row++) {
+      for (let col = 0; col < moduleCount; col++) {
+        // Skip corner targets
+        const inTopLeft = row < 8 && col < 8;
+        const inTopRight = row < 8 && col >= moduleCount - 8;
+        const inBottomLeft = row >= moduleCount - 8 && col < 8;
+
+        if (!inTopLeft && !inTopRight && !inBottomLeft) {
+          if (pseudoRandom() > 0.45) {
+            ctx.fillRect(offset + col * moduleSize, offset + row * moduleSize, moduleSize - 0.5, moduleSize - 0.5);
+          }
+        }
+      }
+    }
+  }
+
+  /**
+   * Generates and downloads an Official Green Campus Certificate
+   */
+  downloadCertificate() {
+    const user = this.auth.currentUser || { name: 'Campus Student', id: 'CAMPUS-2026', department: 'Innovation & Sustainability' };
+    const bestScore = user?.stats?.bestScore || 10;
+    const dateStr = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+    const canvas = document.createElement('canvas');
+    canvas.width = 1200;
+    canvas.height = 840;
+    const ctx = canvas.getContext('2d');
+
+    // Background gradient
+    const bgGradient = ctx.createLinearGradient(0, 0, 1200, 840);
+    bgGradient.addColorStop(0, '#f9fafb');
+    bgGradient.addColorStop(1, '#ecfdf5');
+    ctx.fillStyle = bgGradient;
+    ctx.fillRect(0, 0, 1200, 840);
+
+    // Outer decorative border
+    ctx.strokeStyle = '#059669';
+    ctx.lineWidth = 14;
+    ctx.strokeRect(30, 30, 1140, 780);
+
+    ctx.strokeStyle = '#10b981';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(45, 45, 1110, 750);
+
+    // Header Lab
+    ctx.fillStyle = '#065f46';
+    ctx.font = 'bold 22px "Plus Jakarta Sans", sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('INNOVATION & DESIGN THINKING LAB • TEAM PARTICLES', 600, 110);
+
+    // Title
+    ctx.fillStyle = '#064e3b';
+    ctx.font = '900 44px "Outfit", sans-serif';
+    ctx.fillText('GREEN CAMPUS SUSTAINABILITY CERTIFICATE', 600, 175);
+
+    ctx.fillStyle = '#4b5563';
+    ctx.font = '500 20px "Plus Jakarta Sans", sans-serif';
+    ctx.fillText('This is proudly awarded to', 600, 240);
+
+    // Recipient Name
+    ctx.fillStyle = '#0f172a';
+    ctx.font = 'bold 46px "Outfit", sans-serif';
+    ctx.fillText(user.name.toUpperCase(), 600, 310);
+
+    // Student ID & Dept
+    ctx.fillStyle = '#059669';
+    ctx.font = '600 20px "Plus Jakarta Sans", sans-serif';
+    ctx.fillText(`Student ID: ${user.id}  •  ${user.department}`, 600, 355);
+
+    // Body text
+    ctx.fillStyle = '#374151';
+    ctx.font = '400 18px "Plus Jakarta Sans", sans-serif';
+    ctx.fillText('For exceptional performance and demonstrated environmental literacy in the', 600, 420);
+    ctx.font = 'bold 22px "Plus Jakarta Sans", sans-serif';
+    ctx.fillStyle = '#065f46';
+    ctx.fillText('Annual Green Campus Sustainability Challenge (10/10 Quiz Master)', 600, 455);
+
+    ctx.fillStyle = '#4b5563';
+    ctx.font = 'italic 17px "Plus Jakarta Sans", sans-serif';
+    ctx.fillText('"Turning environmental awareness into an interactive campus habit."', 600, 500);
+
+    // Seal Badge
+    ctx.beginPath();
+    ctx.arc(600, 610, 55, 0, Math.PI * 2);
+    ctx.fillStyle = '#10b981';
+    ctx.fill();
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = '#064e3b';
+    ctx.stroke();
+
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 16px "Plus Jakarta Sans", sans-serif';
+    ctx.fillText('VERIFIED', 600, 605);
+    ctx.font = 'bold 14px "Plus Jakarta Sans", sans-serif';
+    ctx.fillText('ECO CHAMPION', 600, 625);
+
+    // Signatures
+    ctx.strokeStyle = '#9ca3af';
+    ctx.lineWidth = 1;
+
+    // Left Signature
+    ctx.beginPath();
+    ctx.moveTo(220, 720);
+    ctx.lineTo(440, 720);
+    ctx.stroke();
+    ctx.fillStyle = '#1f2937';
+    ctx.font = 'bold 16px "Plus Jakarta Sans", sans-serif';
+    ctx.fillText('Prof. Director of Sustainability', 330, 745);
+    ctx.fillStyle = '#6b7280';
+    ctx.font = '14px "Plus Jakarta Sans", sans-serif';
+    ctx.fillText(dateStr, 330, 768);
+
+    // Right Signature
+    ctx.beginPath();
+    ctx.moveTo(760, 720);
+    ctx.lineTo(980, 720);
+    ctx.stroke();
+    ctx.fillStyle = '#1f2937';
+    ctx.font = 'bold 16px "Plus Jakarta Sans", sans-serif';
+    ctx.fillText('Team Particles Lead', 870, 745);
+    ctx.fillStyle = '#6b7280';
+    ctx.font = '14px "Plus Jakarta Sans", sans-serif';
+    ctx.fillText('Design Thinking Lab', 870, 768);
+
+    // Download trigger
+    const link = document.createElement('a');
+    link.download = `Green_Campus_Certificate_${user.name.replace(/\s+/g, '_')}.png`;
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+
+    if (window.showToast) {
+      window.showToast('Certificate downloaded successfully! 🎓🌱');
+    }
+  }
+}
+
+window.RewardsManager = RewardsManager;
+
+
+/* --- app.js --- */
+/**
+ * Green Campus App Controller
+ * Coordinates UI views, authentication modals, quiz interaction,
+ * leaderboard, rewards, and real-time APIs.
+ */
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Initialize Managers
+  const auth = window.authManager;
+  const quiz = new window.QuizEngine();
+  const leaderboard = new window.LeaderboardManager(auth);
+  const rewards = new window.RewardsManager(auth);
+
+  window.quiz = quiz;
+  window.leaderboardManager = leaderboard;
+  window.rewardsManager = rewards;
+
+  // State
+  let currentView = 'landing';
+  let selectedRegisterAvatar = '🌱';
+
+  // DOM Elements
+  const navUserBtn = document.getElementById('nav-user-btn');
+  const navUserName = document.getElementById('nav-user-name');
+  const navUserAvatar = document.getElementById('nav-user-avatar');
+  const authModal = document.getElementById('auth-modal');
+  const profileModal = document.getElementById('profile-modal');
+  const toastEl = document.getElementById('global-toast');
+  const toastText = document.getElementById('toast-text');
+  const soundToggleBtn = document.getElementById('sound-toggle-btn');
+  const soundIcon = document.getElementById('sound-icon');
+
+  // Views
+  const views = {
+    landing: document.getElementById('view-landing'),
+    quiz: document.getElementById('view-quiz'),
+    leaderboard: document.getElementById('view-leaderboard'),
+    rewards: document.getElementById('view-rewards')
+  };
+
+  /**
+   * View Switcher
+   */
+  function navigateTo(viewName) {
+    currentView = viewName;
+
+    Object.keys(views).forEach(key => {
+      if (views[key]) {
+        if (key === viewName) {
+          views[key].classList.remove('hidden');
+        } else {
+          views[key].classList.add('hidden');
+        }
+      }
+    });
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Update active nav indicators
+    document.querySelectorAll('.nav-link').forEach(link => {
+      if (link.dataset.view === viewName) {
+        link.classList.add('text-emerald-700', 'font-bold', 'border-b-2', 'border-emerald-600');
+        link.classList.remove('text-slate-600');
+      } else {
+        link.classList.remove('text-emerald-700', 'font-bold', 'border-b-2', 'border-emerald-600');
+        link.classList.add('text-slate-600');
+      }
+    });
+
+    // Refresh view specific data
+    if (viewName === 'leaderboard') {
+      leaderboard.renderLeaderboard('leaderboard-list', 'podium-container', leaderboard.currentFilter);
+    } else if (viewName === 'rewards') {
+      rewards.renderRewardsGrid('rewards-grid');
+    }
+  }
+  window.navigateTo = navigateTo;
+
+  /**
+   * Toast helper
+   */
+  window.showToast = function(message) {
+    if (!toastEl || !toastText) return;
+    toastText.textContent = message;
+    toastEl.classList.remove('opacity-0', 'translate-y-12');
+    toastEl.classList.add('opacity-100', 'translate-y-0');
+
+    setTimeout(() => {
+      toastEl.classList.remove('opacity-100', 'translate-y-0');
+      toastEl.classList.add('opacity-0', 'translate-y-12');
+    }, 3200);
+  };
+
+  /**
+   * Sound Toggle
+   */
+  if (soundToggleBtn) {
+    const isMuted = quiz.sound.muted;
+    if (soundIcon) {
+      soundIcon.className = isMuted ? 'fa-solid fa-volume-xmark text-slate-400' : 'fa-solid fa-volume-high text-emerald-600';
+    }
+
+    soundToggleBtn.addEventListener('click', () => {
+      const muted = quiz.sound.toggleMute();
+      if (soundIcon) {
+        soundIcon.className = muted ? 'fa-solid fa-volume-xmark text-slate-400' : 'fa-solid fa-volume-high text-emerald-600';
+      }
+      showToast(muted ? 'Sound Muted 🔇' : 'Sound Enabled 🔊');
+    });
+  }
+
+  /**
+   * Auth Subscription & UI Update
+   */
+  auth.subscribe(user => {
+    if (user) {
+      if (navUserName) navUserName.textContent = user.name.split(' ')[0];
+      if (navUserAvatar) navUserAvatar.textContent = user.avatar || '🌱';
+      if (navUserBtn) {
+        navUserBtn.setAttribute('title', `Logged in as ${user.name} (${user.id})`);
+      }
+    } else {
+      if (navUserName) navUserName.textContent = 'Sign In';
+      if (navUserAvatar) navUserAvatar.textContent = '👤';
+      if (navUserBtn) {
+        navUserBtn.setAttribute('title', 'Sign In or Register');
+      }
+    }
+
+    // Update Profile View if open
+    updateProfileView(user);
+
+    // If currently on rewards or leaderboard, refresh
+    if (currentView === 'rewards') {
+      rewards.renderRewardsGrid('rewards-grid');
+    } else if (currentView === 'leaderboard') {
+      leaderboard.renderLeaderboard('leaderboard-list', 'podium-container', leaderboard.currentFilter);
+    }
+  });
+
+  /**
+   * Open & Close Auth Modal
+   */
+  window.openAuthModal = function(initialTab = 'login') {
+    if (auth.currentUser) {
+      // User is already logged in, open profile modal instead
+      openProfileModal();
+      return;
+    }
+    switchAuthTab(initialTab);
+    authModal.classList.remove('hidden');
+    authModal.classList.add('flex');
+  };
+
+  window.closeAuthModal = function() {
+    authModal.classList.add('hidden');
+    authModal.classList.remove('flex');
+  };
+
+  function switchAuthTab(tab) {
+    const loginForm = document.getElementById('login-form-container');
+    const registerForm = document.getElementById('register-form-container');
+    const loginTabBtn = document.getElementById('tab-login-btn');
+    const regTabBtn = document.getElementById('tab-register-btn');
+
+    if (tab === 'login') {
+      loginForm.classList.remove('hidden');
+      registerForm.classList.add('hidden');
+      loginTabBtn.classList.add('border-b-2', 'border-emerald-600', 'text-emerald-700', 'font-bold');
+      loginTabBtn.classList.remove('text-slate-400');
+      regTabBtn.classList.remove('border-b-2', 'border-emerald-600', 'text-emerald-700', 'font-bold');
+      regTabBtn.classList.add('text-slate-400');
+    } else {
+      registerForm.classList.remove('hidden');
+      loginForm.classList.add('hidden');
+      regTabBtn.classList.add('border-b-2', 'border-emerald-600', 'text-emerald-700', 'font-bold');
+      regTabBtn.classList.remove('text-slate-400');
+      loginTabBtn.classList.remove('border-b-2', 'border-emerald-600', 'text-emerald-700', 'font-bold');
+      loginTabBtn.classList.add('text-slate-400');
+    }
+  }
+  window.switchAuthTab = switchAuthTab;
+
+  // Handle Login Submission
+  const loginForm = document.getElementById('auth-login-form');
+  if (loginForm) {
+    loginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const identifier = document.getElementById('login-id').value;
+      const pass = document.getElementById('login-password').value;
+      const errorEl = document.getElementById('login-error');
+
+      const result = auth.login(identifier, pass);
+      if (result.success) {
+        if (errorEl) errorEl.classList.add('hidden');
+        closeAuthModal();
+        showToast(`Welcome back, ${result.user.name}! 🌱`);
+        checkPendingStartQuiz();
+      } else {
+        if (errorEl) {
+          errorEl.textContent = result.message;
+          errorEl.classList.remove('hidden');
+        }
+      }
+    });
+  }
+
+  // Handle Register Submission
+  const registerForm = document.getElementById('auth-register-form');
+  if (registerForm) {
+    registerForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('reg-name').value;
+      const email = document.getElementById('reg-email').value;
+      const dept = document.getElementById('reg-dept').value;
+      const studentId = document.getElementById('reg-id').value;
+      const pass = document.getElementById('reg-password').value;
+      const errorEl = document.getElementById('reg-error');
+
+      const result = auth.register({
+        name,
+        email,
+        department: dept,
+        studentId,
+        password: pass,
+        avatar: selectedRegisterAvatar
+      });
+
+      if (result.success) {
+        if (errorEl) errorEl.classList.add('hidden');
+        closeAuthModal();
+        showToast(`Account created! Welcome to Green Campus, ${result.user.name}! 🎉`);
+        checkPendingStartQuiz();
+      } else {
+        if (errorEl) {
+          errorEl.textContent = result.message;
+          errorEl.classList.remove('hidden');
+        }
+      }
+    });
+  }
+
+  // Avatar Selection Buttons
+  document.querySelectorAll('.avatar-select-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.avatar-select-btn').forEach(b => b.classList.remove('ring-4', 'ring-emerald-500', 'bg-emerald-100'));
+      btn.classList.add('ring-4', 'ring-emerald-500', 'bg-emerald-100');
+      selectedRegisterAvatar = btn.dataset.avatar || '🌱';
+    });
+  });
+
+  // Demo Login Buttons
+  window.loginAsDemo = function(index = 0) {
+    const res = auth.loginDemo(index);
+    if (res.success) {
+      closeAuthModal();
+      showToast(`Logged in as demo student: ${res.user.name}`);
+      checkPendingStartQuiz();
+    }
+  };
+
+  window.loginAsGuestUser = function() {
+    const res = auth.loginAsGuest();
+    if (res.success) {
+      closeAuthModal();
+      showToast(`Exploring as Campus Guest 🌍`);
+      checkPendingStartQuiz();
+    }
+  };
+
+  /**
+   * Profile Modal & User Record View
+   */
+  function openProfileModal() {
+    const user = auth.currentUser;
+    if (!user) {
+      openAuthModal('login');
+      return;
+    }
+    updateProfileView(user);
+    profileModal.classList.remove('hidden');
+    profileModal.classList.add('flex');
+  }
+  window.openProfileModal = openProfileModal;
+
+  window.closeProfileModal = function() {
+    profileModal.classList.add('hidden');
+    profileModal.classList.remove('flex');
+  };
+
+  function updateProfileView(user) {
+    if (!user) return;
+
+    const nameEl = document.getElementById('profile-name');
+    const idEl = document.getElementById('profile-id');
+    const deptEl = document.getElementById('profile-dept');
+    const avatarEl = document.getElementById('profile-avatar');
+    const rankEl = document.getElementById('profile-rank');
+    const scoreEl = document.getElementById('profile-best-score');
+    const timeEl = document.getElementById('profile-best-time');
+    const pointsEl = document.getElementById('profile-points');
+    const quizzesCountEl = document.getElementById('profile-quizzes-count');
+    const badgesContainer = document.getElementById('profile-badges');
+    const historyContainer = document.getElementById('profile-history');
+
+    if (nameEl) nameEl.textContent = user.name;
+    if (idEl) idEl.textContent = user.id;
+    if (deptEl) deptEl.textContent = user.department;
+    if (avatarEl) avatarEl.textContent = user.avatar || '🌱';
+
+    const rank = leaderboard.getCurrentUserRank();
+    if (rankEl) rankEl.textContent = rank ? `#${rank} on Campus` : 'Not ranked yet';
+    if (scoreEl) scoreEl.textContent = `${user.stats?.bestScore || 0}/10`;
+    if (timeEl) timeEl.textContent = user.stats?.bestTime && user.stats.bestTime < 9999 ? auth.formatTime(user.stats.bestTime) : '--:--';
+    if (pointsEl) pointsEl.textContent = user.stats?.totalPoints || 0;
+    if (quizzesCountEl) quizzesCountEl.textContent = user.stats?.quizzesTaken || 0;
+
+    // Badges
+    if (badgesContainer) {
+      const badges = user.stats?.badges || [];
+      if (badges.length === 0) {
+        badgesContainer.innerHTML = '<span class="text-xs text-slate-400">Play a quiz to unlock your first badge!</span>';
+      } else {
+        const badgeIcons = {
+          'First Step': '🌱 First Step',
+          'Speed Demon': '⚡ Speed Demon (<45s)',
+          'Green Genius': '🎯 Green Genius (8+)',
+          'Sustainability Champion': '🏆 Champion (10/10)',
+          'Eco Warrior': '♻️ Eco Warrior'
+        };
+        badgesContainer.innerHTML = badges.map(b => `
+          <span class="inline-flex items-center gap-1 px-3 py-1 bg-emerald-100 text-emerald-800 text-xs font-bold rounded-full border border-emerald-300">
+            ${badgeIcons[b] || b}
+          </span>
+        `).join('');
+      }
+    }
+
+    // History Table
+    if (historyContainer) {
+      const history = user.stats?.history || [];
+      if (history.length === 0) {
+        historyContainer.innerHTML = '<tr><td colspan="4" class="text-center py-4 text-xs text-slate-400">No attempts recorded yet.</td></tr>';
+      } else {
+        historyContainer.innerHTML = history.slice(0, 5).map((h, i) => `
+          <tr class="border-b border-slate-100 text-xs">
+            <td class="py-2.5 font-medium text-slate-700">#${history.length - i}</td>
+            <td class="py-2.5 text-slate-500">${h.date}</td>
+            <td class="py-2.5 font-bold ${h.score >= 8 ? 'text-emerald-600' : 'text-slate-800'}">${h.score}/10</td>
+            <td class="py-2.5 text-slate-600">${h.formattedTime || auth.formatTime(h.timeSeconds)}</td>
+          </tr>
+        `).join('');
+      }
+    }
+  }
+
+  window.handleLogout = function() {
+    auth.logout();
+    closeProfileModal();
+    showToast('Logged out successfully.');
+    navigateTo('landing');
+  };
+
+  /**
+   * Quiz Flow
+   */
+  let pendingStartQuiz = false;
+
+  window.startQuizChallenge = function() {
+    if (!auth.currentUser) {
+      pendingStartQuiz = true;
+      openAuthModal('login');
+      showToast('Please sign in, choose a demo student, or continue as guest to start! 🚀');
+      return;
+    }
+
+    navigateTo('quiz');
+    document.getElementById('quiz-question-box').classList.remove('hidden');
+    document.getElementById('quiz-summary-card').classList.add('hidden');
+    quiz.startQuiz();
+  };
+
+  function checkPendingStartQuiz() {
+    if (pendingStartQuiz) {
+      pendingStartQuiz = false;
+      setTimeout(() => {
+        window.startQuizChallenge();
+      }, 100);
+    }
+  }
+
+  // Quiz Engine Callbacks
+  quiz.onQuestionChange = (question, index, total) => {
+    // Update question progress indicators
+    const progressText = document.getElementById('quiz-progress-text');
+    const progressBar = document.getElementById('quiz-progress-bar');
+    const categoryBadge = document.getElementById('quiz-category-badge');
+    const questionText = document.getElementById('quiz-question-text');
+    const optionsContainer = document.getElementById('quiz-options-container');
+    const feedbackBox = document.getElementById('quiz-feedback-box');
+    const nextBtn = document.getElementById('quiz-next-btn');
+
+    if (progressText) progressText.textContent = `${index + 1} / ${total}`;
+    if (progressBar) progressBar.style.width = `${((index + 1) / total) * 100}%`;
+    if (categoryBadge) {
+      categoryBadge.textContent = question.category;
+      categoryBadge.className = `text-xs font-bold px-3 py-1 rounded-full text-white ${question.badgeColor || 'bg-emerald-600'}`;
+    }
+    if (questionText) questionText.textContent = question.question;
+    if (feedbackBox) feedbackBox.classList.add('hidden');
+    if (nextBtn) nextBtn.classList.add('hidden');
+
+    // Render Options A, B, C, D
+    if (optionsContainer) {
+      optionsContainer.innerHTML = question.options.map((opt) => `
+        <button onclick="handleOptionSelect('${opt.id}')" 
+          id="opt-btn-${opt.id}"
+          class="quiz-option w-full p-4 text-left flex items-center justify-between group">
+          <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded-xl bg-slate-100 group-hover:bg-emerald-200 text-slate-700 font-bold flex items-center justify-center text-sm transition">
+              ${opt.id}
+            </span>
+            <span class="font-medium text-slate-800 text-sm sm:text-base">
+              ${opt.text}
+            </span>
+          </div>
+          <span class="opt-status-icon text-lg hidden"></span>
+        </button>
+      `).join('');
+    }
+  };
+
+  window.handleOptionSelect = function(optionId) {
+    if (quiz.isAnswered) return;
+
+    const result = quiz.submitAnswer(optionId);
+    if (!result) return;
+
+    const selectedBtn = document.getElementById(`opt-btn-${optionId}`);
+    const correctBtn = document.getElementById(`opt-btn-${result.correctOptionId}`);
+    const feedbackBox = document.getElementById('quiz-feedback-box');
+    const feedbackTitle = document.getElementById('feedback-title');
+    const feedbackExplanation = document.getElementById('feedback-explanation');
+    const nextBtn = document.getElementById('quiz-next-btn');
+
+    // Disable all options
+    document.querySelectorAll('.quiz-option').forEach(btn => btn.classList.add('disabled', 'pointer-events-none'));
+
+    // Highlight correct
+    if (correctBtn) {
+      correctBtn.classList.add('correct');
+      const icon = correctBtn.querySelector('.opt-status-icon');
+      if (icon) {
+        icon.innerHTML = '<i class="fa-solid fa-circle-check text-emerald-600"></i>';
+        icon.classList.remove('hidden');
+      }
+    }
+
+    // Highlight wrong if selected
+    if (!result.isCorrect && selectedBtn) {
+      selectedBtn.classList.add('wrong', 'animate-shake');
+      const icon = selectedBtn.querySelector('.opt-status-icon');
+      if (icon) {
+        icon.innerHTML = '<i class="fa-solid fa-circle-xmark text-rose-600"></i>';
+        icon.classList.remove('hidden');
+      }
+    }
+
+    // Show Eco Insight feedback (Slide 3 instant feedback principle)
+    if (feedbackBox) {
+      feedbackTitle.innerHTML = result.isCorrect 
+        ? '<span class="text-emerald-700 flex items-center gap-1.5"><i class="fa-solid fa-sparkles"></i> Correct Answer! +1 Point</span>'
+        : '<span class="text-rose-700 flex items-center gap-1.5"><i class="fa-solid fa-circle-info"></i> Nice try! Here is why:</span>';
+      feedbackExplanation.textContent = result.explanation;
+      feedbackBox.classList.remove('hidden');
+    }
+
+    // Show Next Button
+    if (nextBtn) {
+      nextBtn.classList.remove('hidden');
+      nextBtn.focus();
+    }
+  };
+
+  quiz.onQuestionTimeout = (question) => {
+    // Auto reveal when 20s expires
+    const correctOption = question.options.find(o => o.isCorrect);
+    if (correctOption) {
+      const correctBtn = document.getElementById(`opt-btn-${correctOption.id}`);
+      if (correctBtn) correctBtn.classList.add('correct');
+    }
+    const feedbackBox = document.getElementById('quiz-feedback-box');
+    const feedbackTitle = document.getElementById('feedback-title');
+    const feedbackExplanation = document.getElementById('feedback-explanation');
+    const nextBtn = document.getElementById('quiz-next-btn');
+
+    if (feedbackBox) {
+      feedbackTitle.innerHTML = '<span class="text-amber-700 flex items-center gap-1.5"><i class="fa-solid fa-hourglass-end"></i> Time Expired!</span>';
+      feedbackExplanation.textContent = question.explanation;
+      feedbackBox.classList.remove('hidden');
+    }
+    if (nextBtn) {
+      nextBtn.classList.remove('hidden');
+    }
+  };
+
+  window.handleNextQuestion = function() {
+    quiz.sound.playClick();
+    quiz.nextQuestion();
+  };
+
+  quiz.onQuizComplete = (data) => {
+    const questionBox = document.getElementById('quiz-question-box');
+    const summaryCard = document.getElementById('quiz-summary-card');
+
+    if (questionBox) questionBox.classList.add('hidden');
+    if (summaryCard) summaryCard.classList.remove('hidden');
+
+    // Populate summary card
+    const scoreVal = document.getElementById('summary-score');
+    const timeVal = document.getElementById('summary-time');
+    const messageVal = document.getElementById('summary-message');
+    const user = auth.currentUser;
+
+    if (scoreVal) scoreVal.textContent = `${data.score} / ${data.totalQuestions}`;
+    if (timeVal) timeVal.textContent = data.formattedTime;
+
+    let message = "Great effort! Review the campus tips to sharpen your green knowledge.";
+    if (data.score === 10) {
+      message = "🎉 OUTSTANDING! Perfect 10/10! You've unlocked the Champion Voucher & Certificate!";
+    } else if (data.score >= 8) {
+      message = "🌟 Brilliant work! You qualify for the Eco-Stationery Kit and Campus Cafe vouchers!";
+    } else if (data.score >= 6) {
+      message = "🌱 Good job! You've earned a 50% Campus Eco Cafe voucher!";
+    }
+    if (messageVal) messageVal.textContent = message;
+
+    showToast(`Quiz Complete! Score: ${data.score}/10 in ${data.formattedTime}`);
+  };
+
+  /**
+   * Leaderboard Filters & Search
+   */
+  const deptFilterSelect = document.getElementById('leaderboard-dept-filter');
+  if (deptFilterSelect) {
+    deptFilterSelect.addEventListener('change', (e) => {
+      leaderboard.currentFilter = e.target.value;
+      leaderboard.renderLeaderboard('leaderboard-list', 'podium-container', leaderboard.currentFilter);
+    });
+  }
+
+  const searchInput = document.getElementById('leaderboard-search-input');
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      leaderboard.searchQuery = e.target.value;
+      leaderboard.renderLeaderboard('leaderboard-list', 'podium-container', leaderboard.currentFilter);
+    });
+  }
+
+  /**
+   * Load Live Campus Air Quality & Eco Fact
+   */
+  async function loadCampusEcoFeed() {
+    const aqiVal = document.getElementById('live-aqi-value');
+    const aqiLabel = document.getElementById('live-aqi-label');
+    const aqiTip = document.getElementById('live-aqi-tip');
+    const aqiSource = document.getElementById('live-aqi-source');
+    const dailyFact = document.getElementById('daily-eco-fact');
+    const factCategory = document.getElementById('daily-fact-category');
+
+    // Daily Fact
+    const fact = window.EcoAPI.getRandomEcoFact();
+    if (dailyFact) dailyFact.textContent = `"${fact.fact}"`;
+    if (factCategory) factCategory.textContent = `${fact.category} • ${fact.impact}`;
+
+    // Live Air Quality API
+    const aqiData = await window.EcoAPI.fetchCampusAirQuality();
+    if (aqiVal) aqiVal.textContent = aqiData.aqi;
+    if (aqiLabel) {
+      aqiLabel.textContent = aqiData.status.label;
+      aqiLabel.className = `font-bold text-xs px-2.5 py-0.5 rounded-full ${aqiData.status.bg} ${aqiData.status.color}`;
+    }
+    if (aqiTip) aqiTip.textContent = aqiData.tip;
+    if (aqiSource) aqiSource.textContent = aqiData.source;
+  }
+
+  loadCampusEcoFeed();
+
+  // Initial Route Check
+  navigateTo('landing');
+});
+
+
+</script>
+</body>
+</html>
